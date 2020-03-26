@@ -7,8 +7,8 @@ using UnityEngine.XR.ARSubsystems;
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class ArManager : MonoBehaviour {
-    [SerializeField] private GameObject goToPlace;
-    private GameObject _spawnedGo;
+    [SerializeField] private GameObject[] goToPlace;
+    private GameObject[] _spawnedGo;
     private ARRaycastManager _arRaycastManager;
     private Vector2 _touchPos;
     
@@ -16,7 +16,8 @@ public class ArManager : MonoBehaviour {
 
     private void Start() {
         _arRaycastManager = gameObject.GetComponent<ARRaycastManager>();
-        
+        _spawnedGo = new GameObject[3];
+
     }
 
     private void Update() {
@@ -26,12 +27,19 @@ public class ArManager : MonoBehaviour {
 
         if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon)) {
             var hitPose = hits[0].pose;
-            if (_spawnedGo == null) {
-                _spawnedGo = Instantiate(goToPlace, hitPose.position, hitPose.rotation);
+
+            for (int i = 0; i < goToPlace.Length; i++) {
+                if (_spawnedGo[i] == null)
+                {
+                    _spawnedGo[i] = Instantiate(goToPlace[i], hitPose.position, hitPose.rotation);
+                }
+                else
+                {
+                    var x_new = i * 5;
+                    _spawnedGo[i].transform.position = hitPose.position + new Vector3(x_new, 0, 0);
+                }
             }
-            else {
-                _spawnedGo.transform.position = hitPose.position;
-            }
+
         }
     }
 
