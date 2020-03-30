@@ -59,7 +59,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ArManager.cs" />
+     <Compile Include="Assets\Scripts\AudioRecorder.cs" />
+     <Compile Include="Assets\Scripts\ConvolutionReverbUploadIR.cs" />
      <Compile Include="Assets\Scripts\ImpulseResponse.cs" />
+     <Compile Include="Assets\Scripts\MicrophoneFeed.cs" />
+     <Compile Include="Assets\Scripts\NoiseSweep.cs" />
+     <Compile Include="Assets\Scripts\SpatializerUserParams.cs" />
  <Reference Include="Unity.XR.ARKit">
  <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
  </Reference>
