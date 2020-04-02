@@ -6,16 +6,23 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class ImpulseResponse : MonoBehaviour {
     private bool micFound = false;
+    private bool stoppedRecording = false;
     private AudioSource audioSource;
 
     private void Start() {
+        audioSource = GetComponent<AudioSource>();
         // Ask for mic access from user before using it
-        StartCoroutine(GetMicrophone());
+        // StartCoroutine(GetMicrophone());
+        audioSource.clip = Microphone.Start(null, true, 1, AudioSettings.outputSampleRate);
+        Debug.Log("Started recording");
+        while (!(Microphone.GetPosition(null) > 0)) {}
+        Debug.Log("start playing... position is " + Microphone.GetPosition(null));
+        // audioSource.loop = true;
+        audioSource.Play();
     }
 
     private void StartRecording() {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = Microphone.Start(Microphone.devices[0], true, 10, AudioSettings.outputSampleRate);
+        audioSource.clip = Microphone.Start(Microphone.devices[0], true, 5, AudioSettings.outputSampleRate);
         Debug.Log("Started recording");
         audioSource.loop = true;
         audioSource.Play();
@@ -43,21 +50,24 @@ public class ImpulseResponse : MonoBehaviour {
     }
 
     private void Update() {
-        if (audioSource != null) {
-            /*
-            float[] samples = new float[audioSource.clip.samples * audioSource.clip.channels];
-            audioSource.clip.GetData(samples, 0);
-            if(Math.Abs(audioSource.time - 1.0f) < 0.01)
-            for (int i = 0; i < samples.Length; ++i) {
-                Debug.Log(samples[i]);
-                // samples[i] = samples[i] * 0.5f;
-            }
-            */
-
-            if (audioSource.time >= 2.0f) {
-                audioSource.Stop();
+        /*
+        if (Time.time > 6.0f) {
+            if (!stoppedRecording) {
                 StopRecording();
+                stoppedRecording = true;
             }
+        }
+        */
+        float[] spectrum = new float[256];
+        AudioListener.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
+        for (int i = 1; i < spectrum.Length - 1; i++) {
+            Debug.DrawLine(new Vector3(i - 1, spectrum[i] + 10, 0), new Vector3(i, spectrum[i + 1] + 10, 0), Color.red);
+            Debug.DrawLine(new Vector3(i - 1, Mathf.Log(spectrum[i - 1]) + 10, 2),
+                new Vector3(i, Mathf.Log(spectrum[i]) + 10, 2), Color.cyan);
+            Debug.DrawLine(new Vector3(Mathf.Log(i - 1), spectrum[i - 1] - 10, 1),
+                new Vector3(Mathf.Log(i), spectrum[i] - 10, 1), Color.green);
+            Debug.DrawLine(new Vector3(Mathf.Log(i - 1), Mathf.Log(spectrum[i - 1]), 3),
+                new Vector3(Mathf.Log(i), Mathf.Log(spectrum[i]), 3), Color.blue);
         }
     }
 }

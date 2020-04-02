@@ -15,6 +15,7 @@ public class AudioRecorder : MonoBehaviour
     void Start()
     {
     #if WRITEHEADER
+        filename = Path.Combine(Application.streamingAssetsPath, filename);
         var stream = new FileStream(filename, FileMode.Create);
         binwriter = new BinaryWriter(stream);
         for (int n = 0; n < 44; n++)
