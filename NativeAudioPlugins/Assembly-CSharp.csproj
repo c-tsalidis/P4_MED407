@@ -91,22 +91,22 @@
      <Compile Include="Assets\scripts\WeatherAnimator.cs" />
      <None Include="Assets\shaders\granulator fractal.shader" />
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/NativeAudioPlugins/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>/Users/ctsalidis/Desktop/NativeAudioPlugins/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/NativeAudioPlugins/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Users/ctsalidis/Desktop/NativeAudioPlugins/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/NativeAudioPlugins/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>/Users/ctsalidis/Desktop/NativeAudioPlugins/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/NativeAudioPlugins/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>/Users/ctsalidis/Desktop/NativeAudioPlugins/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/NativeAudioPlugins/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ <HintPath>/Users/ctsalidis/Desktop/NativeAudioPlugins/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/NativeAudioPlugins/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>/Users/ctsalidis/Desktop/NativeAudioPlugins/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.ARModule">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>

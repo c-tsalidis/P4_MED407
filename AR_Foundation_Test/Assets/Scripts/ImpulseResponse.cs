@@ -35,6 +35,7 @@ public class ImpulseResponse : MonoBehaviour {
 
     private IEnumerator GetMicrophone() {
         yield return Application.RequestUserAuthorization(UserAuthorization.Microphone);
+        
         if (Application.HasUserAuthorization(UserAuthorization.Microphone)) {
             micFound = true;
             Debug.Log("Microphone found: ");
@@ -47,6 +48,7 @@ public class ImpulseResponse : MonoBehaviour {
         else {
             Debug.Log("Microphone not found");
         }
+        
     }
 
     private void Update() {
