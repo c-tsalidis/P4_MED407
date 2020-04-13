@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class ConvolutionReverbUploadIR : MonoBehaviour
 {
@@ -13,14 +15,26 @@ public class ConvolutionReverbUploadIR : MonoBehaviour
     private bool[] uploaded = new bool[64];
     private AudioClip[] currImpulse = new AudioClip[64];
 
+    private AudioMixer audioMixer;
+
+    [SerializeField] private Slider sampleSlider;
+
     void Start()
     {
         UploadChangedClips();
+        audioMixer = GetComponent<AudioSource>().outputAudioMixerGroup.audioMixer;
     }
 
     void Update()
     {
         UploadChangedClips();
+        ChangeSample();
+    }
+
+    private void ChangeSample() {
+        // reference to change an exposed parameter of an audio mixer --> https://learn.unity.com/tutorial/audio-mixing#5c7f8528edbc2a002053b506
+        var sample = sampleSlider.value;
+        audioMixer.SetFloat("sample", sample);
     }
 
     void UploadChangedClips()
