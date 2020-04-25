@@ -1,0 +1,63 @@
+We can think of the Fourier transform as a decomposition of a signal into phasors ((a type of complex numbers) of different frequencies, and
+the amplitude of the different phasors then reflects the amount of power or energy that is present in the signal at that frequency
+
+When you apply Fourier Transform to a signal it converts it from time domain to frequency domain, and the inverse Fourier Transform does the opposite.
+
+x_n is the input signal in time domain --> X(w) is the Fourier Transform of x_n --> X(w) is the spectrum of x_n
+
+ Steps:
+ 
+ Apparently I need to apply linear convolution on top of circular convolution --> overlap-add method --> Convolution reverb explained in page 111
+ 
+
+ - Fourier transform of input
+
+ - Apply FIR filter in frequency domain --> multiplication of the spectrum of the input with frequency response of filter
+
+- Inverse Fourier transform gives an output signal
+
+
+
+
+
+How to apply fast convolution to a signal with an impulse response:
+Circular convolution can be applied for segments of length N to produce linear with the overlap-add procedure:
+
+It is performed for a filter having an 
+Impulse response (h_m) of length M <= N with an FFT size of F = N + M − 1 (zero padding applied to it)
+
+First, the frequency response H(ω_f) of the filter is computed for ω_f = 2πf / F --> with f = 0, 1, . . . , F − 1
+
+Then, the following is performed for every input segment, x_n, comprised of N samples:
+
+1 - Compute the F-point FFTs with zero-padding of x_n to obtain X(ω_f)
+2 - Multiply X(ω_f) and H(ω_f) for f = 0, 1, . . . , F − 1 to obtain  Y(ω_f ) = X(ω_f )H(ω_f )
+3 - Compute the F-point inverse FFT of Y(ω_f ) to obtain y_n for n = 0, 1, . . . , F−1
+4 - Add the lastM−1 samples of the previous segment to theM−1 first samples of y_n 
+    to obtain y_n for n = 0, 1, . . . , N−1.
+     Similarly, store the last M−1 samples of y_n to be added to the first samples of the next segment,
+     
+Note that for a time-invariant filter, H(ωf )
+only has to be computed once and not every segment, but if the filter changes, then
+the frequency response has to be re-computed.
+
+
+
+References:
+
+- Introduction to Audio Processing book --> Convolution reverb explained in page 111
+
+- Complex numbers --> https://www.egr.msu.edu/classes/ece480/capstone/fall11/group06/style/Application_Note_ChrisOakley.pdf
+
+- Fourier :
+    --> https://www.egr.msu.edu/classes/ece480/capstone/fall11/group06/style/Application_Note_ChrisOakley.pdf
+
+    --> https://pastebin.com/LiTws7ND
+
+    --> https://rosettacode.org/wiki/Fast_Fourier_transform#C.23
+
+- Complete Fourier open source code by AForge:
+    --> https://github.com/andrewkirillov/AForge.NET/blob/master/Sources/Math/FourierTransform.cs
+    --> https://github.com/andrewkirillov/AForge.NET/blob/master/Sources/Math/Complex.cs
+    --> https://github.com/andrewkirillov/AForge.NET/blob/master/Sources/Math/Tools.cs
+

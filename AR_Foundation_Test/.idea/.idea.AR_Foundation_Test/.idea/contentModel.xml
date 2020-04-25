@@ -7,9 +7,15 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="ARManager.cs" t="Include" />
+          <e p="AudioProcessing" t="Include">
+            <e p="Complex.cs" t="Include" />
+            <e p="ConvolutionReverb.cs" t="Include" />
+            <e p="FourierTransform.cs" t="Include" />
+            <e p="Notes.txt" t="Include" />
+            <e p="Tools.cs" t="Include" />
+          </e>
           <e p="AudioRecorder.cs" t="Include" />
           <e p="ConvolutionReverbUploadIR.cs" t="Include" />
-          <e p="ImpulseResponse.cs" t="Include" />
           <e p="MicrophoneFeed.cs" t="Include" />
           <e p="NoiseSweep.cs" t="Include" />
           <e p="SpatializerUserParams.cs" t="Include" />
