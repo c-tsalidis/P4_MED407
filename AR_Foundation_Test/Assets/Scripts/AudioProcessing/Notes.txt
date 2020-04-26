@@ -18,6 +18,14 @@ x_n is the input signal in time domain --> X(w) is the Fourier Transform of x_n 
 
 
 
+To apply fast convolution reverb to a signal with an FIR filter I need to use the linear Overlap-Add Convolution:
+- https://ccrma.stanford.edu/~jos/sasp/Example_Overlap_Add_Convolution.html
+- https://www.comm.utoronto.ca/~dkundur/course_info/real-time-DSP/notes/8_Kundur_Overlap_Save_Add.pdf
+
+- Example implementation in C# --> https://github.com/ar1st0crat/NWaves/blob/master/NWaves/Operations/Convolution/Convolver.cs
+- https://codeandsound.wordpress.com/tag/c/ --> Implementation in Unity
+- 
+
 
 
 How to apply fast convolution to a signal with an impulse response:
@@ -33,8 +41,7 @@ Then, the following is performed for every input segment, x_n, comprised of N sa
 1 - Compute the F-point FFTs with zero-padding of x_n to obtain X(ω_f)
 2 - Multiply X(ω_f) and H(ω_f) for f = 0, 1, . . . , F − 1 to obtain  Y(ω_f ) = X(ω_f )H(ω_f )
 3 - Compute the F-point inverse FFT of Y(ω_f ) to obtain y_n for n = 0, 1, . . . , F−1
-4 - Add the lastM−1 samples of the previous segment to theM−1 first samples of y_n 
-    to obtain y_n for n = 0, 1, . . . , N−1.
+4 - Add the last M−1 samples of the previous segment to the M−1 first samples of y_n to obtain y_n for n = 0, 1, . . . , N−1.
      Similarly, store the last M−1 samples of y_n to be added to the first samples of the next segment,
      
 Note that for a time-invariant filter, H(ωf )

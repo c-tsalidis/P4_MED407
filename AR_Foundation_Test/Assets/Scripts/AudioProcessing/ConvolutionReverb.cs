@@ -1,62 +1,86 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 
-public class ConvolutionReverb: MonoBehaviour {
-
+public class ConvolutionReverb : MonoBehaviour {
     [SerializeField] private AudioClip input;
     [SerializeField] private AudioClip impulseResponse;
-    
-    const float MAXLENGTH = 15.0f;
-    const int MAXSAMPLE = 16;
+    private AudioSource _audioSource;
+    private AudioClip _audioClip;
 
-    int globalupdatecount = 0;
-    
     private void Start() {
-        
         Debug.Log("Uploading impulse response " + impulseResponse.name);
-        float[] data = new float[impulseResponse.samples];
-        impulseResponse.GetData(data, 0);
-        Convolve(data, data.Length / input.channels, input.channels, input.frequency, input.name);
+
+        // get data of impulse response
+        float[] irData = new float[impulseResponse.samples];
+        impulseResponse.GetData(irData, 0);
+
+        // get data of the input signal
+        float[] inputData = new float[input.samples];
+        input.GetData(inputData, 0);
+
+        ConvolutionOverlapAdd(inputData, irData);
     }
 
-    public void Convolve(float[] data, int numsamples, int numchannels, int samplerate, string name) {
+    /// <summary>
+    /// Convolution using the Overlap-Add procedure.
+    /// </summary>
+    /// <param name="inputData">Input signal data of the audio you want to apply the convolution reverberation to.</param>
+    /// <param name="irData">The impulse response data that you want to convolve the input signal with.</param>
+    private void ConvolutionOverlapAdd(float[] inputData, float[] irData) {
+        int N = inputData.Length;
+        int M = irData.Length;
+        // get length that arrays will be zero-padded to --> the fft size --> F = N + M - 1
+        int F = Mathf.NextPowerOfTwo(N + M - 1);
 
-        Debug.Log(data.Length);
-        Complex [] complexData = new Complex[data.Length];
-        
-        // to make the data to the power of two --> Check out Zero Padding
-        // Augment the input signal with F-N number of zeros (page 102) --> F is the desired signal length (2^number) --> 2^8 = 256
-        if (!Mathf.IsPowerOfTwo(data.Length)) {
-            ArrayList newData = new ArrayList(data);
-            int F = 256; // desired signal length
-            int N = data.Length;
-            for (int i = 0; i < (F - N); i++) {
-                newData.Add(0);
-            }
+        // create temporary arrays of complex numbers with zero padding to F if needed
+        Complex[] newIRData = new Complex[F];
+        irData = ZeroPadding(irData, F);
+        for (int i = 0; i < F; i++) {
+            newIRData[i] = (Complex) irData[i];
+        }
+        Complex[] newInputData = new Complex[F];
+        inputData = ZeroPadding(inputData, F);
+        for (int i = 0; i < inputData.Length; i++) {
+            newInputData[i].Re = inputData[i];
+        }
+
+        // FFT of the input signal and of the impulse response to transform them into the frequency domain
+        FourierTransform.FFT(newInputData, FourierTransform.Direction.Forward);
+        FourierTransform.FFT(newIRData, FourierTransform.Direction.Forward);
+
+        // convolution in the time domain --> multiplication in the frequency domain
+        Complex[] inverseFFT = new Complex[F];
+        for (int i = 0; i < inverseFFT.Length; i++) {
+            // ifft[i] = newInputData[i] * newIRData[i] * F;
+            inverseFFT[i] = newInputData[i] * newIRData[i];
+        }
+
+        FourierTransform.FFT(inverseFFT, FourierTransform.Direction.Backward);
+
+        // output signal
+        float[] outputSignal = new float[inputData.Length];
+
+        for (int i = 0; i < N; i++) {
+            outputSignal[i] += outputSignal[i] + (float) inverseFFT[i].Re; // overlap-add
         }
         
-        // convert data values to complex numbers
-        for(int i = 0; i < data.Length; i++) {
-            complexData[i] = (Complex) data[i];
+        // now play the output signal
+        // set the _audioClip data to the outputSignal
+        // set  _audioSource.clip = _audioClip;
+
+    }
+
+    private float[] ZeroPadding(float[] data, int fftSize) {
+        List<float> newData = new List<float>(data);
+        int N = data.Length;
+        for (int i = 0; i < (fftSize - N); i++) {
+            newData.Add(0);
         }
 
-        /*
-        Debug.Log(Mathf.IsPowerOfTwo(data.Length));
-        int segments = (int) data.Length / Mathf.Pow(2, 10);
-        for (int i = 0; i < segments; i++) {
-            
-        }
-        */
-        
-        // Apply FFT of input to convert it to frequency domain
-        FourierTransform.FFT(complexData, FourierTransform.Direction.Forward);
-        
-        // apply FFT of impulse response to get the frequency response
-        
-        // apply FIR filter in frequency domain --> multiplication of input in frequency domain with frequency response of filter
-        
-        // IFFT (Inverse Fast Fourier Transform) of the multiplication of input and frequency response
-
+        return newData.ToArray();
     }
 }
