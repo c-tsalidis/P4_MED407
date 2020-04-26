@@ -126,7 +126,7 @@ public class ConvolutionReverb : MonoBehaviour {
         Complex[] inverseFFT = new Complex[F];
         for (int i = 0; i < inverseFFT.Length; i++) {
             // ifft[i] = newInputData[i] * newIRData[i] * F;
-            // inverseFFT[i] = newInputData[i] * newIRData[i];
+            inverseFFT[i] = newInputData[i] * newIRData[i];
         }
 
         FourierTransform.FFT(inverseFFT, FourierTransform.Direction.Backward);
@@ -141,12 +141,12 @@ public class ConvolutionReverb : MonoBehaviour {
         // now play the output signal
         // set the _audioClip data to the outputSignal
         // set  _audioSource.clip = _audioClip;
-        // SaveOutputSignal(outputSignal);
+        SaveOutputSignal(outputSignal);
         // SaveOutputSignal(resultSignal);
     }
 
     private void SaveOutputSignal(float[] outputSignal) { 
-        /*
+        
         string filename = "record.wav";
         BinaryWriter binwriter;
         #if WRITEHEADER
@@ -161,12 +161,12 @@ public class ConvolutionReverb : MonoBehaviour {
         #endif
         for (int n = 0; n < outputSignal.Length; n++)
             binwriter.Write(outputSignal[n]);
-            */
+            
 
         
-        _audioClip = input;
-        _audioClip.SetData(outputSignal, 0);
-        _audioSource.clip = _audioClip;
+        // _audioClip = input;
+        // _audioClip.SetData(outputSignal, 0);
+        // _audioSource.clip = _audioClip;
         
     }
 
