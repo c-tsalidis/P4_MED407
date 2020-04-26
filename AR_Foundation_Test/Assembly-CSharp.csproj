@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\AudioProcessing\ConvolutionReverb.cs" />
      <Compile Include="Assets\Scripts\AudioProcessing\FourierTransform.cs" />
      <Compile Include="Assets\Scripts\AudioProcessing\Tools.cs" />
+     <Compile Include="Assets\Scripts\AudioProcessing\Util.cs" />
      <Compile Include="Assets\Scripts\AudioRecorder.cs" />
      <Compile Include="Assets\Scripts\ConvolutionReverbUploadIR.cs" />
      <Compile Include="Assets\Scripts\MicrophoneFeed.cs" />

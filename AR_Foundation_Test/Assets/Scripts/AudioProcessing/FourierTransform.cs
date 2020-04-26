@@ -276,9 +276,9 @@ public static class FourierTransform {
     #region Private Region
 
     private const int minLength = 2;
-    private const int maxLength = 16384;
+    private const int maxLength = 16384 * 100;
     private const int minBits = 1;
-    private const int maxBits = 14;
+    private const int maxBits = 14 * 100;
     private static int[][] reversedBits = new int[maxBits][];
     private static Complex[,][] complexRotation = new Complex[maxBits, 2][];
 

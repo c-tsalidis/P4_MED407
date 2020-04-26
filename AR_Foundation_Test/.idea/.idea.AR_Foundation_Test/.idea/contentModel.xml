@@ -13,6 +13,7 @@
             <e p="FourierTransform.cs" t="Include" />
             <e p="Notes.txt" t="Include" />
             <e p="Tools.cs" t="Include" />
+            <e p="Util.cs" t="Include" />
           </e>
           <e p="AudioRecorder.cs" t="Include" />
           <e p="ConvolutionReverbUploadIR.cs" t="Include" />
