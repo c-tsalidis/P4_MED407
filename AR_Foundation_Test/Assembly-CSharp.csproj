@@ -59,65 +59,66 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ArManager.cs" />
+     <Compile Include="Assets\Scripts\pulsatingEffect.cs" />
  <Reference Include="Unity.XR.ARKit">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Subsystem.Registration">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARSubsystems">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARSubsystems.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARSubsystems.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARSubsystems.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARSubsystems.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARSubsystems.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARCore">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARCore.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARCore.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARFoundation.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARFoundation.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARFoundation.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARFoundation">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARFoundation.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARFoundation.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARCore.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARCore.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARCore.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.SpatialTracking">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.ARKit.Editor">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.Editor.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>/Users/balazsivanyi/AAU/4th_semester/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
