@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 using UnityEditor.Playables;
 
 public class ConvolutionReverb : MonoBehaviour {
@@ -53,11 +54,6 @@ public class ConvolutionReverb : MonoBehaviour {
             position = position + step_size
         end
         
-        
-        F = L + M - 1 --> L = F - M + 1
-        
-        N = L + M - 1
-        
          */
 
         int Nx = inputData.Length;
@@ -84,49 +80,40 @@ public class ConvolutionReverb : MonoBehaviour {
         }
         // FFT of the the impulse response to transform it into the frequency domain
         FourierTransform.FFT(newIRData, FourierTransform.Direction.Forward);
-        
+
+        // zero padding of the input data
         Complex[] newInputData = new Complex[F];
         inputData = ZeroPadding(inputData, F);
         for (int i = 0; i < inputData.Length; i++) {
             newInputData[i].Re = inputData[i];
         }
-
+        
+        // divide the input data into multiple segments
         int numberSegments = Nx / stepSize;
         Complex [][] inputDatas = new Complex[numberSegments][];
-        
-
-        // input data --> Block A, B, ..., numberSegments
-        // step size --> N --> segment size
-        // segments = input data length / step size
-        // we need to create an array containing every segment --> inputDatas
-
         for (int i = 0; i < numberSegments; i += stepSize) {
             inputDatas[i] = new Complex[stepSize];
             for (int j = 0; j < stepSize; j++) {
-                inputDatas[i][j].Re = inputData[j + stepSize];
-                // inputDatas[A][j] = inputData[i + j];
+                int loc = j + i * stepSize;
+                inputDatas[i][j].Re = newInputData[loc].Re;
             }
         }
         
-        /*
-        while ((position + stepSize) <= Nx) {
-            for (int i = 1; i < stepSize; i++) {
-                // FFT of the input signal and of the impulse response to transform them into the frequency domain
-                FourierTransform.FFT(inputDatas[i], FourierTransform.Direction.Forward);
-            }
-            for (int i = 1; i < N; i++) {
-                outputSignal[position + i] += 
-            }
+        // calculate the fourier transform of every segment of the input signal
+        for (int i = 1; i < numberSegments; i++) {
+            // FFT of the input signal and of the impulse response to transform them into the frequency domain
+            FourierTransform.FFT(inputDatas[i], FourierTransform.Direction.Forward);
         }
-        */
-
         
-
         // convolution in the time domain --> multiplication in the frequency domain
         Complex[] inverseFFT = new Complex[F];
-        for (int i = 0; i < inverseFFT.Length; i++) {
-            // ifft[i] = newInputData[i] * newIRData[i] * F;
-            inverseFFT[i] = newInputData[i] * newIRData[i];
+        for (int i = 0; i < numberSegments; i += stepSize) {
+            // inputDatas[i] = new Complex[stepSize];
+            for (int j = 0; j < stepSize; j++) {
+                int loc = j + i * stepSize;
+                // inverseFFT[i] = inputDatas[i][j] * newIRData[i] * F;
+                inverseFFT[loc] = inputDatas[i][j] * newIRData[loc];
+            }
         }
 
         FourierTransform.FFT(inverseFFT, FourierTransform.Direction.Backward);
@@ -147,7 +134,11 @@ public class ConvolutionReverb : MonoBehaviour {
 
     private void SaveOutputSignal(float[] outputSignal) { 
         
-        string filename = "record.wav";
+        string filename = "outputSignal.txt";
+        // save the output signal to a txt file
+        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename) ,outputSignal.Select(d => d.ToString()));
+
+        filename = "record.wav";
         BinaryWriter binwriter;
         #if WRITEHEADER
             filename = Path.Combine(Application.streamingAssetsPath, filename);
@@ -161,12 +152,10 @@ public class ConvolutionReverb : MonoBehaviour {
         #endif
         for (int n = 0; n < outputSignal.Length; n++)
             binwriter.Write(outputSignal[n]);
-            
 
-        
-        // _audioClip = input;
-        // _audioClip.SetData(outputSignal, 0);
-        // _audioSource.clip = _audioClip;
+        _audioClip = input;
+        _audioClip.SetData(outputSignal, 0);
+        _audioSource.clip = _audioClip;
         
     }
 

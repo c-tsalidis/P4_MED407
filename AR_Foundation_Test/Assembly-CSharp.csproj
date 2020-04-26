@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\NoiseSweep.cs" />
      <Compile Include="Assets\Scripts\SpatializerUserParams.cs" />
      <None Include="Assets\Scripts\AudioProcessing\Notes.txt" />
+     <None Include="Assets\StreamingAssets\outputSignal.txt" />
  <Reference Include="Unity.XR.ARKit">
  <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
  </Reference>
