@@ -254,6 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640eeb2ffb3b24dc9a657cabc087b6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 8300000, guid: 331472befb6c34b76a0bfb8f312ef846, type: 3}
+  impulseResponse: {fileID: 8300000, guid: c850e4f52d767426791e13edb23bab37, type: 3}
 --- !u!1 &1194105285
 GameObject:
   m_ObjectHideFlags: 0

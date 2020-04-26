@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Playables;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Diagnostics;
+using System.IO;
 
 public class ConvolutionReverb : MonoBehaviour {
     [SerializeField] private AudioClip input;
@@ -40,7 +37,7 @@ public class ConvolutionReverb : MonoBehaviour {
         Complex[] newIRData = new Complex[F];
         irData = ZeroPadding(irData, F);
         for (int i = 0; i < F; i++) {
-            newIRData[i] = (Complex) irData[i];
+            newIRData[i].Re = irData[i];
         }
         Complex[] newInputData = new Complex[F];
         inputData = ZeroPadding(inputData, F);
@@ -71,7 +68,24 @@ public class ConvolutionReverb : MonoBehaviour {
         // now play the output signal
         // set the _audioClip data to the outputSignal
         // set  _audioSource.clip = _audioClip;
+        SaveOutputSignal(outputSignal);
+    }
 
+    private void SaveOutputSignal(float[] outputSignal) { 
+        string filename = "record.wav";
+        BinaryWriter binwriter;
+        #if WRITEHEADER
+            filename = Path.Combine(Application.streamingAssetsPath, filename);
+            var stream = new FileStream(filename, FileMode.Create);
+            binwriter = new BinaryWriter(stream);
+            for (int n = 0; n < 44; n++)
+                binwriter.Write((byte)0);
+        #else
+            var stream = new FileStream("record.raw", FileMode.Create);
+            binwriter = new BinaryWriter(stream);
+        #endif
+        for (int n = 0; n < outputSignal.Length; n++)
+            binwriter.Write(outputSignal[n]);
     }
 
     private float[] ZeroPadding(float[] data, int fftSize) {
