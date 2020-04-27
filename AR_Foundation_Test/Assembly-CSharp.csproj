@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\ArManager.cs" />
+     <Compile Include="Assets\Scripts\AudioProcessing\BinaryWriterExtensions.cs" />
      <Compile Include="Assets\Scripts\AudioProcessing\Complex.cs" />
      <Compile Include="Assets\Scripts\AudioProcessing\ConvolutionReverb.cs" />
      <Compile Include="Assets\Scripts\AudioProcessing\FourierTransform.cs" />

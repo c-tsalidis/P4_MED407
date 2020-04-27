@@ -20,14 +20,14 @@ public class ConvolutionReverb : MonoBehaviour {
 
         // get data of impulse response
         float[] irData = new float[impulseResponse.samples];
-        Util.DeinterleaveData(irData, 1);
+        // Util.DeinterleaveData(irData, 1);
         impulseResponse.GetData(irData, 0);
 
         // get data of the input signal
         float[] inputData = new float[input.samples];
         input.GetData(inputData, 0);
-        Util.DeinterleaveData(inputData, 1);
-        
+        // Util.DeinterleaveData(inputData, 1);
+
         ConvolutionOverlapAdd(inputData, irData);
     }
 
@@ -37,8 +37,6 @@ public class ConvolutionReverb : MonoBehaviour {
     /// <param name="inputData">Input signal data of the audio you want to apply the convolution reverberation to.</param>
     /// <param name="irData">The impulse response data that you want to convolve the input signal with.</param>
     private void ConvolutionOverlapAdd(float[] inputData, float[] irData) {
-
-        
         /*
         h = FIR_impulse_response
         M = length(h)
@@ -66,18 +64,19 @@ public class ConvolutionReverb : MonoBehaviour {
             // add zero padding to it
             F = Mathf.NextPowerOfTwo(F);
         }
-        
+
         int position = 0;
-        
+
         // output signal
-        float[] outputSignal = new float[F];
-        
+        Complex[] outputSignal = new Complex[F];
+
         // create temporary arrays of complex numbers with zero padding to the impulse response if needed
         Complex[] newIRData = new Complex[F];
         irData = ZeroPadding(irData, F);
         for (int i = 0; i < F; i++) {
             newIRData[i].Re = irData[i];
         }
+
         // FFT of the the impulse response to transform it into the frequency domain
         FourierTransform.FFT(newIRData, FourierTransform.Direction.Forward);
 
@@ -87,24 +86,24 @@ public class ConvolutionReverb : MonoBehaviour {
         for (int i = 0; i < inputData.Length; i++) {
             newInputData[i].Re = inputData[i];
         }
-        
+
         // divide the input data into multiple segments
         int numberSegments = Nx / stepSize;
-        Complex [][] inputDatas = new Complex[numberSegments][];
-        for (int i = 0; i < numberSegments; i += stepSize) {
+        Complex[][] inputDatas = new Complex[numberSegments][];
+        for (int i = 0; i < numberSegments; i += 1) {
             inputDatas[i] = new Complex[stepSize];
             for (int j = 0; j < stepSize; j++) {
                 int loc = j + i * stepSize;
-                inputDatas[i][j].Re = newInputData[loc].Re;
+                inputDatas[i][j] = newInputData[loc];
             }
         }
-        
+
         // calculate the fourier transform of every segment of the input signal
         for (int i = 1; i < numberSegments; i++) {
             // FFT of the input signal and of the impulse response to transform them into the frequency domain
             FourierTransform.FFT(inputDatas[i], FourierTransform.Direction.Forward);
         }
-        
+
         // convolution in the time domain --> multiplication in the frequency domain
         Complex[] inverseFFT = new Complex[F];
         for (int i = 0; i < numberSegments; i += stepSize) {
@@ -119,12 +118,12 @@ public class ConvolutionReverb : MonoBehaviour {
         FourierTransform.FFT(inverseFFT, FourierTransform.Direction.Backward);
 
         for (int i = 0; i < Nx; i++) {
-            outputSignal[i] += outputSignal[i] + (float) inverseFFT[i].Re; // overlap-add
+            outputSignal[i] += outputSignal[i] + inverseFFT[i]; // overlap-add
         }
 
         float[] resultSignal = new float[outputSignal.Length];
         // Util.InterleaveData(outputSignal, resultSignal);
-        
+
         // now play the output signal
         // set the _audioClip data to the outputSignal
         // set  _audioSource.clip = _audioClip;
@@ -132,31 +131,39 @@ public class ConvolutionReverb : MonoBehaviour {
         // SaveOutputSignal(resultSignal);
     }
 
-    private void SaveOutputSignal(float[] outputSignal) { 
-        
+    private void SaveOutputSignal(Complex[] outputSignal) {
         string filename = "outputSignal.txt";
         // save the output signal to a txt file
-        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename) ,outputSignal.Select(d => d.ToString()));
+        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
+            outputSignal.Select(d => d.ToString()));
 
         filename = "record.wav";
-        BinaryWriter binwriter;
-        #if WRITEHEADER
-            filename = Path.Combine(Application.streamingAssetsPath, filename);
-            var stream = new FileStream(filename, FileMode.Create);
-            binwriter = new BinaryWriter(stream);
-            for (int n = 0; n < 44; n++)
-                binwriter.Write((byte)0);
-        #else
-            var stream = new FileStream("record.raw", FileMode.Create);
-            binwriter = new BinaryWriter(stream);
-        #endif
-        for (int n = 0; n < outputSignal.Length; n++)
-            binwriter.Write(outputSignal[n]);
-
-        _audioClip = input;
-        _audioClip.SetData(outputSignal, 0);
-        _audioSource.clip = _audioClip;
+        /*
+            BinaryWriter binwriter;
+            #if WRITEHEADER
+                filename = Path.Combine(Application.streamingAssetsPath, filename);
+                var stream = new FileStream(filename, FileMode.Create);
+                binwriter = new BinaryWriter(stream);
+                for (int n = 0; n < 44; n++)
+                    binwriter.Write((byte)0);
+            #else
+                var stream = new FileStream("record.raw", FileMode.Create);
+                binwriter = new BinaryWriter(stream);
+            #endif
+            for (int n = 0; n < outputSignal.Length; n++)
+                binwriter.Write(outputSignal[n]);
+        */
+        /*
+            _audioClip = input;
+            _audioClip.SetData(outputSignal, 0);
+            _audioSource.clip = _audioClip;
+        */
         
+        /*
+        using (var stream = new FileStream(Path.Combine(Application.streamingAssetsPath, filename), FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
+            stream.AppendWaveData(outputSignal);
+        }
+        */
     }
 
     private float[] ZeroPadding(float[] data, int fftSize) {

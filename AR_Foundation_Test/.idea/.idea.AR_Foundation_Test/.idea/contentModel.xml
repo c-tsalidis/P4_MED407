@@ -8,6 +8,7 @@
         <e p="Scripts" t="Include">
           <e p="ARManager.cs" t="Include" />
           <e p="AudioProcessing" t="Include">
+            <e p="BinaryWriterExtensions.cs" t="Include" />
             <e p="Complex.cs" t="Include" />
             <e p="ConvolutionReverb.cs" t="Include" />
             <e p="FourierTransform.cs" t="Include" />
