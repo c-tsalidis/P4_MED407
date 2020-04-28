@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{CE6A00A4-8892-A22F-D3EF-54A37F4C8885}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -64,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArManager.cs" />
+    <Compile Include="Assets\Scripts\AudioMeter.cs" />
     <Compile Include="Assets\Scripts\pulsatingEffect.cs" />
     <Reference Include="Unity.XR.ARKit">
       <HintPath>C:/Users/Marcus/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
