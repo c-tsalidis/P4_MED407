@@ -42,7 +42,8 @@ public class AudioMeter : MonoBehaviour
         for (int i = 0; i < amnVisual; i++)
         {
             GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube) as GameObject;
-            //visualList[i].localScale = Vector3(1, 1, 0.1);
+            //visualList[i].localScale = new Vector3(1, 1, 0.1f);
+            // go.transform.SetParent(this.gameObject.transform);
             visualList[i] = go.transform;
             visualList[i].position = Vector3.right * i;
             
