@@ -58,6 +58,9 @@
      <Compile Include="Assets\Scripts\ArManager.cs" />
      <Compile Include="Assets\Scripts\AudioMeter.cs" />
      <Compile Include="Assets\Scripts\pulsatingEffect.cs" />
+ <Reference Include="Unity.XR.Management">
+ <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.XR.ARKit">
  <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
  </Reference>
@@ -94,6 +97,9 @@
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.XR.Management.Editor">
+ <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Rider.Editor">
  <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
@@ -105,12 +111,6 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.XR.Management">
- <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
- </Reference>
- <Reference Include="Unity.XR.Management.Editor">
- <HintPath>C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

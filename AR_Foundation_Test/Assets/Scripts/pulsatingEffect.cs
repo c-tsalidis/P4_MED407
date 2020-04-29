@@ -38,7 +38,7 @@ public class pulsatingEffect : MonoBehaviour
             yield return new WaitForSeconds(0.015f);
         }
         
-        for (float i = 0f; i <= 1f; i+= 0.1f)
+        for (float i = 0f; i <= 1f; i+= 0.05f)
         {
             transform.localScale = new Vector3(
                 Mathf.Lerp(transform.localScale.x, transform.localScale.x - changeSize, Mathf.SmoothStep(0f, 1f, i)),
