@@ -6,13 +6,18 @@ public class AudioMeter : MonoBehaviour
 {
     private const int SAMPLE_SIZE = 1024;
 
+    //Microphone 
+    public AudioClip audioClip;
+    public bool useMicrophone;
+    public string selectedDevice;
+
     //average power output of the sound
     public float rmsValue;
     public float dbValue;
     public float pitchValue;
 
     public float maxVisualScale = 25;
-    public float visualModifier = 50.0f;
+    public float visualModifier = 400.0f;
     public float smoothSpeed = 10.0f;
     public float keepPercentage = 0.5f;
 
@@ -23,7 +28,7 @@ public class AudioMeter : MonoBehaviour
 
     private Transform[] visualList;
     private float[] visualScale;
-    private int amnVisual = 40;
+    private int amnVisual = 10;
     
     private void Start()
     {
@@ -33,6 +38,25 @@ public class AudioMeter : MonoBehaviour
         sampleRate = AudioSettings.outputSampleRate;
 
         SpawnLine();
+
+        if (useMicrophone)
+        {
+            if(Microphone.devices.Length > 0)
+            {
+                selectedDevice = Microphone.devices[0].ToString();
+                source.clip = Microphone.Start(selectedDevice, true, 10, AudioSettings.outputSampleRate);
+            }
+            else
+            {
+                useMicrophone = false;
+            }
+        }
+        else
+        {
+            source.clip = audioClip;
+        }
+        source.Play();
+        
     }
     private void SpawnLine()
     {
@@ -97,6 +121,7 @@ public class AudioMeter : MonoBehaviour
             sum += samples[i] * samples[i];
         }
         rmsValue = Mathf.Sqrt(sum / SAMPLE_SIZE);
+        System.Diagnostics.Debug.WriteLine(samples[1]);
 
         //Getting the DB value
         dbValue = 20 * Mathf.Log10(rmsValue / 0.1f);
