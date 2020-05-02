@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\tothl\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\tothl\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_AR_Foundation_Test.1985555457.00" t="ExcludeRecursive" />
-    <e p="C:\Users\tothl\Documents\GitHub\P4_MED407\AR_Foundation_Test" t="IncludeRecursive">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="AR_Foundation_Test.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="MainMenu.cs" t="Include" />
+        <e p="ResonanceAudio" t="Include">
+          <e p="Demos" t="Include">
+            <e p="Environment" t="Include">
+              <e p="ResonanceAudioDemo" t="Include">
+                <e p="CubeRoomUnlitGrayscale.shader" t="Include" />
+              </e>
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="DemoPlayerController.cs" t="Include" />
+              <e p="ResonanceAudioDemo" t="Include">
+                <e p="ResonanceAudioDemoCubeController.cs" t="Include" />
+                <e p="ResonanceAudioDemoManager.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Editor" t="Include">
+            <e p="ResonanceAudioBuildProcessor.cs" t="Include" />
+            <e p="ResonanceAudioListenerEditor.cs" t="Include" />
+            <e p="ResonanceAudioMaterialMapEditor.cs" t="Include" />
+            <e p="ResonanceAudioReverbBakingWindow.cs" t="Include" />
+            <e p="ResonanceAudioReverbComputer.cs" t="Include" />
+            <e p="ResonanceAudioReverbProbeEditor.cs" t="Include" />
+            <e p="ResonanceAudioRoomEditor.cs" t="Include" />
+            <e p="ResonanceAudioSourceEditor.cs" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="ResonanceAudio.cs" t="Include" />
+            <e p="ResonanceAudioAcousticMesh.cs" t="Include" />
+            <e p="ResonanceAudioListener.cs" t="Include" />
+            <e p="ResonanceAudioMaterialMap.cs" t="Include" />
+            <e p="ResonanceAudioMaterialMapper.cs" t="Include" />
+            <e p="ResonanceAudioMaterialMapperUpdater.cs" t="Include" />
+            <e p="ResonanceAudioReverbProbe.cs" t="Include" />
+            <e p="ResonanceAudioRoom.cs" t="Include" />
+            <e p="ResonanceAudioRoomManager.cs" t="Include" />
+            <e p="ResonanceAudioSource.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="ResonanceAudioSurfaceMaterial.shader" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
-          <e p="ARManager.cs" t="Include" />
+          <e p="ArManager.cs" t="Include" />
           <e p="AudioMeter.cs" t="Include" />
           <e p="pulsatingEffect.cs" t="Include" />
         </e>
@@ -85,13 +125,10 @@
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
-      <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
     </e>
-<<<<<<< Updated upstream
-=======
     <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.1/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_AR_Foundation_Test.-816852985.00" t="ExcludeRecursive" />
->>>>>>> Stashed changes
   </component>
 </project>
