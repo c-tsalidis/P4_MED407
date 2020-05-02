@@ -1,0 +1,4 @@
+#Sat May 02 14:12:11 CEST 2020
+base.0=/Users/tbtjems/Documents/GitHub/P4_MED407/AR_Foundation_Test/Temp/gradleOut/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex
