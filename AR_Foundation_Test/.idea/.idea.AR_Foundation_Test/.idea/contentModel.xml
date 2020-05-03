@@ -5,6 +5,295 @@
       <e p="AR_Foundation_Test.sln" t="IncludeFlat" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="NWaves" t="Include">
+          <e p="Audio" t="Include">
+            <e p="ByteConverter.cs" t="Include" />
+            <e p="Channels.cs" t="Include" />
+            <e p="Interfaces" t="Include">
+              <e p="IAudioContainer.cs" t="Include" />
+              <e p="IAudioPlayer.cs" t="Include" />
+              <e p="IAudioRecorder.cs" t="Include" />
+            </e>
+            <e p="Mci" t="Include">
+              <e p="Mci.cs" t="Include" />
+              <e p="MciAudioPlayer.cs" t="Include" />
+              <e p="MciAudioRecorder.cs" t="Include" />
+            </e>
+            <e p="WaveFile.cs" t="Include" />
+            <e p="WaveFormat.cs" t="Include" />
+          </e>
+          <e p="Effects" t="Include">
+            <e p="AudioEffect.cs" t="Include" />
+            <e p="AutowahEffect.cs" t="Include" />
+            <e p="ChorusEffect.cs" t="Include" />
+            <e p="DelayEffect.cs" t="Include" />
+            <e p="DistortionEffect.cs" t="Include" />
+            <e p="EchoEffect.cs" t="Include" />
+            <e p="FlangerEffect.cs" t="Include" />
+            <e p="MorphEffect.cs" t="Include" />
+            <e p="OverdriveEffect.cs" t="Include" />
+            <e p="PhaserEffect.cs" t="Include" />
+            <e p="PitchShiftEffect.cs" t="Include" />
+            <e p="PitchShiftVocoderEffect.cs" t="Include" />
+            <e p="RobotEffect.cs" t="Include" />
+            <e p="TremoloEffect.cs" t="Include" />
+            <e p="TubeDistortionEffect.cs" t="Include" />
+            <e p="VibratoEffect.cs" t="Include" />
+            <e p="WahwahEffect.cs" t="Include" />
+            <e p="WhisperEffect.cs" t="Include" />
+          </e>
+          <e p="FeatureExtractors" t="Include">
+            <e p="AmsExtractor.cs" t="Include" />
+            <e p="Base" t="Include">
+              <e p="FeatureExtractor.cs" t="Include" />
+              <e p="FeaturePostProcessing.cs" t="Include" />
+              <e p="FeatureVectorExtensions.cs" t="Include" />
+            </e>
+            <e p="FilterbankExtractor.cs" t="Include" />
+            <e p="LpccExtractor.cs" t="Include" />
+            <e p="LpcExtractor.cs" t="Include" />
+            <e p="MfccExtractor.cs" t="Include" />
+            <e p="Multi" t="Include">
+              <e p="Mpeg7SpectralFeaturesExtractor.cs" t="Include" />
+              <e p="SpectralFeaturesExtractor.cs" t="Include" />
+              <e p="TimeDomainFeaturesExtractor.cs" t="Include" />
+            </e>
+            <e p="Options" t="Include">
+              <e p="AmsOptions.cs" t="Include" />
+              <e p="FeatureExtractorOptions.cs" t="Include" />
+              <e p="FeatureExtractorOptionsExtensions.cs" t="Include" />
+              <e p="FilterbankOptions.cs" t="Include" />
+              <e p="LpccOptions.cs" t="Include" />
+              <e p="LpcOptions.cs" t="Include" />
+              <e p="MfccHtkOptions.cs" t="Include" />
+              <e p="MfccOptions.cs" t="Include" />
+              <e p="MfccSlaneyOptions.cs" t="Include" />
+              <e p="MultiFeatureOptions.cs" t="Include" />
+              <e p="NonLinearityType.cs" t="Include" />
+              <e p="PitchOptions.cs" t="Include" />
+              <e p="PlpOptions.cs" t="Include" />
+              <e p="PnccOptions.cs" t="Include" />
+              <e p="SpectrumType.cs" t="Include" />
+              <e p="WaveletOptions.cs" t="Include" />
+            </e>
+            <e p="PitchExtractor.cs" t="Include" />
+            <e p="PlpExtractor.cs" t="Include" />
+            <e p="PnccExtractor.cs" t="Include" />
+            <e p="Serializers" t="Include">
+              <e p="CsvFeatureSerializer.cs" t="Include" />
+            </e>
+            <e p="SpnccExtractor.cs" t="Include" />
+            <e p="WaveletExtractor.cs" t="Include" />
+          </e>
+          <e p="Features" t="Include">
+            <e p="Harmonic.cs" t="Include" />
+            <e p="Perceptual.cs" t="Include" />
+            <e p="Pitch.cs" t="Include" />
+            <e p="Spectral.cs" t="Include" />
+          </e>
+          <e p="Filters" t="Include">
+            <e p="Adaptive" t="Include">
+              <e p="AdaptiveFilter.cs" t="Include" />
+              <e p="LmfFilter.cs" t="Include" />
+              <e p="LmsFilter.cs" t="Include" />
+              <e p="NlmfFilter.cs" t="Include" />
+              <e p="NlmsFilter.cs" t="Include" />
+              <e p="RlsFilter.cs" t="Include" />
+              <e p="SignLmsFilter.cs" t="Include" />
+              <e p="VariableStepLmsFilter.cs" t="Include" />
+            </e>
+            <e p="Base" t="Include">
+              <e p="FilterChain.cs" t="Include" />
+              <e p="FilteringMethod.cs" t="Include" />
+              <e p="FirFilter.cs" t="Include" />
+              <e p="IFilter.cs" t="Include" />
+              <e p="IFilterExtensions.cs" t="Include" />
+              <e p="IirFilter.cs" t="Include" />
+              <e p="IMixable.cs" t="Include" />
+              <e p="IOnlineFilter.cs" t="Include" />
+              <e p="LtiFilter.cs" t="Include" />
+              <e p="OverlapAddFilter.cs" t="Include" />
+              <e p="StateSpace.cs" t="Include" />
+              <e p="StereoFilter.cs" t="Include" />
+              <e p="TransferFunction.cs" t="Include" />
+              <e p="ZiFilter.cs" t="Include" />
+            </e>
+            <e p="Base64" t="Include">
+              <e p="FirFilter64.cs" t="Include" />
+              <e p="IFilter64.cs" t="Include" />
+              <e p="IirFilter64.cs" t="Include" />
+              <e p="IOnlineFilter64.cs" t="Include" />
+              <e p="ZiFilter64.cs" t="Include" />
+            </e>
+            <e p="Bessel" t="Include">
+              <e p="BandPassFilter.cs" t="Include" />
+              <e p="BandStopFilter.cs" t="Include" />
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="PrototypeBessel.cs" t="Include" />
+            </e>
+            <e p="BiQuad" t="Include">
+              <e p="AllPassFilter.cs" t="Include" />
+              <e p="BandPassFilter.cs" t="Include" />
+              <e p="BiQuadFilter.cs" t="Include" />
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="HighShelfFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="LowShelfFilter.cs" t="Include" />
+              <e p="NotchFilter.cs" t="Include" />
+              <e p="PeakFilter.cs" t="Include" />
+            </e>
+            <e p="Butterworth" t="Include">
+              <e p="BandPassFilter.cs" t="Include" />
+              <e p="BandStopFilter.cs" t="Include" />
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="PrototypeButterworth.cs" t="Include" />
+            </e>
+            <e p="ChebyshevI" t="Include">
+              <e p="BandPassFilter.cs" t="Include" />
+              <e p="BandStopFilter.cs" t="Include" />
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="PrototypeChebyshevI.cs" t="Include" />
+            </e>
+            <e p="ChebyshevII" t="Include">
+              <e p="BandPassFilter.cs" t="Include" />
+              <e p="BandStopFilter.cs" t="Include" />
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="PrototypeChebyshevII.cs" t="Include" />
+            </e>
+            <e p="CombFeedbackFilter.cs" t="Include" />
+            <e p="CombFeedforwardFilter.cs" t="Include" />
+            <e p="DcRemovalFilter.cs" t="Include" />
+            <e p="DeEmphasisFilter.cs" t="Include" />
+            <e p="Elliptic" t="Include">
+              <e p="BandPassFilter.cs" t="Include" />
+              <e p="BandStopFilter.cs" t="Include" />
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="PrototypeElliptic.cs" t="Include" />
+            </e>
+            <e p="Fda" t="Include">
+              <e p="DesignFilter.cs" t="Include" />
+              <e p="FilterBanks.cs" t="Include" />
+              <e p="Remez.cs" t="Include" />
+              <e p="VtlnWarper.cs" t="Include" />
+            </e>
+            <e p="HilbertFilter.cs" t="Include" />
+            <e p="MedianFilter.cs" t="Include" />
+            <e p="MovingAverageFilter.cs" t="Include" />
+            <e p="MovingAverageRecursiveFilter.cs" t="Include" />
+            <e p="OnePole" t="Include">
+              <e p="HighPassFilter.cs" t="Include" />
+              <e p="LowPassFilter.cs" t="Include" />
+              <e p="OnePoleFilter.cs" t="Include" />
+            </e>
+            <e p="Polyphase" t="Include">
+              <e p="PolyphaseSystem.cs" t="Include" />
+            </e>
+            <e p="PreEmphasisFilter.cs" t="Include" />
+            <e p="RastaFilter.cs" t="Include" />
+            <e p="SavitzkyGolayFilter.cs" t="Include" />
+            <e p="ThiranFilter.cs" t="Include" />
+            <e p="WienerFilter.cs" t="Include" />
+          </e>
+          <e p="Operations" t="Include">
+            <e p="Convolution" t="Include">
+              <e p="ComplexConvolver.cs" t="Include" />
+              <e p="Convolver.cs" t="Include" />
+              <e p="OlaBlockConvolver.cs" t="Include" />
+              <e p="OlaBlockConvolver64.cs" t="Include" />
+              <e p="OlsBlockConvolver.cs" t="Include" />
+              <e p="OlsBlockConvolver64.cs" t="Include" />
+            </e>
+            <e p="EnvelopeFollower.cs" t="Include" />
+            <e p="GriffinLimReconstructor.cs" t="Include" />
+            <e p="HarmonicPercussiveSeparator.cs" t="Include" />
+            <e p="Modulator.cs" t="Include" />
+            <e p="Operation.cs" t="Include" />
+            <e p="Resampler.cs" t="Include" />
+            <e p="SpectralSubtractor.cs" t="Include" />
+            <e p="Tsm" t="Include">
+              <e p="PaulStretch.cs" t="Include" />
+              <e p="PhaseLockingVocoder.cs" t="Include" />
+              <e p="PhaseVocoder.cs" t="Include" />
+              <e p="TsmAlgorithm.cs" t="Include" />
+              <e p="Wsola.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Signals" t="Include">
+            <e p="Builders" t="Include">
+              <e p="AdsrBuilder.cs" t="Include" />
+              <e p="AwgnBuilder.cs" t="Include" />
+              <e p="ChirpBuilder.cs" t="Include" />
+              <e p="CosineBuilder.cs" t="Include" />
+              <e p="KarplusStrongBuilder.cs" t="Include" />
+              <e p="KarplusStrongDrumBuilder.cs" t="Include" />
+              <e p="PadSynthBuilder.cs" t="Include" />
+              <e p="PerlinNoiseBuilder.cs" t="Include" />
+              <e p="PinkNoiseBuilder.cs" t="Include" />
+              <e p="PulseWaveBuilder.cs" t="Include" />
+              <e p="RampBuilder.cs" t="Include" />
+              <e p="RedNoiseBuilder.cs" t="Include" />
+              <e p="SawtoothBuilder.cs" t="Include" />
+              <e p="SignalBuilder.cs" t="Include" />
+              <e p="SincBuilder.cs" t="Include" />
+              <e p="SineBuilder.cs" t="Include" />
+              <e p="SquareWaveBuilder.cs" t="Include" />
+              <e p="TriangleWaveBuilder.cs" t="Include" />
+              <e p="WaveTableBuilder.cs" t="Include" />
+              <e p="WhiteNoiseBuilder.cs" t="Include" />
+            </e>
+            <e p="ComplexDiscreteSignal.cs" t="Include" />
+            <e p="ComplexDiscreteSignalExtensions.cs" t="Include" />
+            <e p="DiscreteSignal.cs" t="Include" />
+            <e p="DiscreteSignalExtensions.cs" t="Include" />
+          </e>
+          <e p="Transforms" t="Include">
+            <e p="CepstralTransform.cs" t="Include" />
+            <e p="Dct" t="Include">
+              <e p="Dct1.cs" t="Include" />
+              <e p="Dct2.cs" t="Include" />
+              <e p="Dct3.cs" t="Include" />
+              <e p="Dct4.cs" t="Include" />
+              <e p="FastDct2.cs" t="Include" />
+              <e p="FastDct3.cs" t="Include" />
+              <e p="FastDct4.cs" t="Include" />
+              <e p="FastMdct.cs" t="Include" />
+              <e p="IDct.cs" t="Include" />
+              <e p="Mdct.cs" t="Include" />
+            </e>
+            <e p="Fft.cs" t="Include" />
+            <e p="Fft64.cs" t="Include" />
+            <e p="Goertzel.cs" t="Include" />
+            <e p="HartleyTransform.cs" t="Include" />
+            <e p="HilbertTransform.cs" t="Include" />
+            <e p="MellinTransform.cs" t="Include" />
+            <e p="RealFft.cs" t="Include" />
+            <e p="RealFft64.cs" t="Include" />
+            <e p="Stft.cs" t="Include" />
+            <e p="Wavelets" t="Include">
+              <e p="Fwt.cs" t="Include" />
+              <e p="Wavelet.cs" t="Include" />
+              <e p="WaveletFamily.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Utils" t="Include">
+            <e p="Guard.cs" t="Include" />
+            <e p="Lpc.cs" t="Include" />
+            <e p="MathUtils.cs" t="Include" />
+            <e p="Matrix.cs" t="Include" />
+            <e p="MemoryOperationExtensions.cs" t="Include" />
+            <e p="Scale.cs" t="Include" />
+          </e>
+          <e p="Windows" t="Include">
+            <e p="Window.cs" t="Include" />
+            <e p="WindowExtensions.cs" t="Include" />
+            <e p="WindowTypes.cs" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="AudioProcessing" t="Include">
             <e p="BinaryWriterExtensions.cs" t="Include" />
@@ -18,6 +307,7 @@
         </e>
         <e p="StreamingAssets" t="Include">
           <e p="outputSignal.txt" t="Include" />
+          <e p="outputSignal_complex.txt" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />

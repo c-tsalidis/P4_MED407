@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using UnityEditor.Playables;
+using AForge.Math;
+using NWaves.Operations.Convolution;
+using NWaves.Signals;
 
 public class ConvolutionReverb : MonoBehaviour {
     [SerializeField] private AudioClip input;
@@ -22,9 +24,13 @@ public class ConvolutionReverb : MonoBehaviour {
         float[] inputData = new float[input.samples];
         input.GetData(inputData, 0);
 
-        ConvolutionOverlapAdd(inputData, irData);
-
-        // var conv = new Convolver(F).Convolve(inputSignal, impulseResponseSignal);
+        // ConvolutionOverlapAdd(inputData, irData);
+        
+        int outputF = Mathf.NextPowerOfTwo(inputData.Length + irData.Length - 1);
+        DiscreteSignal inputSignal = new DiscreteSignal(input.frequency, inputData);
+        DiscreteSignal impulseResponseSignal = new DiscreteSignal(impulseResponse.frequency, irData);
+        var conv = new Convolver(outputF).Convolve(inputSignal, impulseResponseSignal);
+        SaveOutputSignal(conv.Samples);
     }
 
     /// <summary>
@@ -41,7 +47,6 @@ public class ConvolutionReverb : MonoBehaviour {
         // get length that arrays will be zero-padded to --> the fft size --> F = N + M - 1
         int F = Mathf.NextPowerOfTwo(stepSize + M - 1);
         int outputF = Mathf.NextPowerOfTwo(Nx + M - 1);
-        int position = 0;
 
         // output signal
         Complex[] outputSignal = new Complex[F];
@@ -116,6 +121,13 @@ public class ConvolutionReverb : MonoBehaviour {
     }
 
     private void SaveOutputSignal(Complex[] outputSignal) {
+        string filename = "outputSignal.txt";
+        // save the output signal to a txt file
+        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
+            outputSignal.Select(d => d.ToString()));
+    }
+    
+    private void SaveOutputSignal(float[] outputSignal) {
         string filename = "outputSignal.txt";
         // save the output signal to a txt file
         File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
