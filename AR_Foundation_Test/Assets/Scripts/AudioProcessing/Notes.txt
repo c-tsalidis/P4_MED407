@@ -22,6 +22,9 @@ To apply fast convolution reverb to a signal with an FIR filter I need to use th
 - https://ccrma.stanford.edu/~jos/sasp/Example_Overlap_Add_Convolution.html
 - https://www.comm.utoronto.ca/~dkundur/course_info/real-time-DSP/notes/8_Kundur_Overlap_Save_Add.pdf
 
+Overlap and add procedure mathematics:
+- https://www.allaboutcircuits.com/technical-articles/overlap-add-method-linear-filtering-based-on-the-discrete-fourier-transform/
+
 - Example implementation in C# --> https://github.com/ar1st0crat/NWaves/blob/master/NWaves/Operations/Convolution/Convolver.cs
 - https://codeandsound.wordpress.com/tag/c/ --> Implementation in Unity
 - 
