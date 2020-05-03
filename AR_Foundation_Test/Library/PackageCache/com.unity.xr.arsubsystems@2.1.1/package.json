@@ -10,11 +10,11 @@
     "AR"
   ],
   "dependencies": {
-    "com.unity.subsystemregistration": "1.0.6"
+    "com.unity.subsystemregistration": "1.0.5"
   },
   "repository": {
     "type": "git",
     "url": "git@github.cds.internal.unity3d.com:unity/com.unity.xr.arsubsystems.git",
-    "revision": "54223cae6bc6b16d9e534d525ea2890204d7cdf0"
+    "revision": "369cf01209332cef2062eee2f728f2689c05c950"
   }
 }
