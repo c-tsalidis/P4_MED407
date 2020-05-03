@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1759750514193492078}
   - component: {fileID: -1095328717917593901}
   - component: {fileID: 4621363063544666061}
+  - component: {fileID: 8799614437448569248}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -203,3 +204,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!64 &8799614437448569248
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703807539274936688}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

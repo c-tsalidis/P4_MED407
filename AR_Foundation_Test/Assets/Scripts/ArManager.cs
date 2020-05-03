@@ -31,11 +31,31 @@ public class ArManager : MonoBehaviour
 
     private void Update()
     {
-
-        if (!CheckTouchPosition(out Vector2 _touchPos))
+        // Debug.Log("Time Since Loaded : " + Time.timeSinceLevelLoad);
+     
+        if (!CheckTouchPosition(out _touchPos)) {
+            return;
+        }
+        if (Input.touchCount > 0) {
+            var touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                if (Physics.Raycast(ray, out hit, 1000))
+                {
+                    if (hit.transform.CompareTag("TagTry"))
+                    {
+                        gameObject.GetComponent<AudioSource>().Play();
+                    }
+                }
+            }
+        }
+        if (!CheckTouchPosition(out _touchPos))
         {
             return;
         }
+        
 
         if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon))
         {
