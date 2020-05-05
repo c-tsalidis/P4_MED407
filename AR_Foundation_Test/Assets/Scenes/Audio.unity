@@ -222,13 +222,14 @@ GameObject:
   - component: {fileID: 626556031}
   - component: {fileID: 626556032}
   - component: {fileID: 626556033}
+  - component: {fileID: 626556034}
   m_Layer: 0
   m_Name: Convolution_Reverb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &626556031
 Transform:
   m_ObjectHideFlags: 0
@@ -250,7 +251,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626556030}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 640eeb2ffb3b24dc9a657cabc087b6bd, type: 3}
   m_Name: 
@@ -353,6 +354,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &626556034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626556030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d68961e078e428a9dd671e4b673d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 8300000, guid: 331472befb6c34b76a0bfb8f312ef846, type: 3}
+  impulseResponse: {fileID: 8300000, guid: c850e4f52d767426791e13edb23bab37, type: 3}
 --- !u!1 &1194105285
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1299270126
 AudioSource:
   m_ObjectHideFlags: 0

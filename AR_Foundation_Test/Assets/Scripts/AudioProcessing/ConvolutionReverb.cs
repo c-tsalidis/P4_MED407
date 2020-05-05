@@ -8,6 +8,7 @@ using System.Linq;
 using AForge.Math;
 using NWaves.Operations.Convolution;
 using NWaves.Signals;
+using UnityEngine.Experimental.PlayerLoop;
 
 public class ConvolutionReverb : MonoBehaviour {
     [SerializeField] private AudioClip input;
@@ -28,9 +29,9 @@ public class ConvolutionReverb : MonoBehaviour {
 
         _audioSource = GetComponent<AudioSource>();
 
-        // ConvolutionOverlapAdd(inputData, irData);
+        ConvolutionOverlapAdd(inputData, irData);
 
-        
+        /*
         int outputF = Mathf.NextPowerOfTwo(inputData.Length + irData.Length - 1);
         DiscreteSignal inputSignal = new DiscreteSignal(input.frequency, inputData);
         DiscreteSignal impulseResponseSignal = new DiscreteSignal(impulseResponse.frequency, irData);
@@ -43,6 +44,7 @@ public class ConvolutionReverb : MonoBehaviour {
         _audioClip = AudioClip.Create("Convolution Reverb", conv.Samples.Length, 1, conv.SamplingRate, false);
         _audioClip.SetData(conv.Samples, 0);
         _audioSource.clip = _audioClip;
+        */
     }
 
     /// <summary>
@@ -73,7 +75,6 @@ public class ConvolutionReverb : MonoBehaviour {
 
         // FFT of the the impulse response to transform it into the frequency domain
         FourierTransform.FFT(newIRData, FourierTransform.Direction.Forward);
-        CalculateFFT(newIRData, false);
 
         // zero padding of the input data
         Complex[] newInputData = new Complex[F];
@@ -121,36 +122,30 @@ public class ConvolutionReverb : MonoBehaviour {
         // put all y_k into a single signal y with overlap and add
         // shift each y(k) by numberOfSegments * n samples and add the results together
         // overlap and add --> final convolution looks like this --> y(k) = y_0(k) + y_1(k - N) + y_2(k - 2N) + ...
-        Complex[] outputData = new Complex[outputF];
+        Complex[] outputDataComplex = new Complex[outputF];
         for (int i = 0; i < numberSegments; i++) {
             for (int j = 0; j < stepSize; j++) {
                 int loc = j + i * stepSize;
-                outputData[loc] += outputDatas[i][j];
+                outputDataComplex[loc] += outputDatas[i][j];
             }
         }
-
+        float [] outputData = new float[outputDataComplex.Length];
+        for (int i = 0; i < outputData.Length; i++) {
+            outputData[i] = (float) outputDataComplex[i].Re;
+        }
         SaveOutputSignal(outputData);
-    }
-
-    private void CalculateFFT(Complex[] data, bool inverse) {
+        
+        // to check if the fft and ifft calculations are correct --> the ifft(fft(inputData)) should give me the original inputData
         /*
-         
-         n --> length of data array
-         
-         *           n
-            Y(k) =  sum  x(i) * exp(-i*2*pi*(i-1) * (k-1) / n), 1 <= k <= n
-                    i=1
-         */
-        int n = data.Length;
-        float[] output = new float[n];
-        for (int i = 1; i < n; i++) { }
-    }
-
-    private void SaveOutputSignal(Complex[] outputSignal) {
-        string filename = "outputSignal.txt";
-        // save the output signal to a txt file
-        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
-            outputSignal.Select(d => d.ToString()));
+        float [] x = {1, 2, 3, 4, 0, 2, 1, 2, 3, 4, 5, 1, 4, 2, 4, 2};
+        Complex [] xc = new Complex[x.Length];
+        for (int i = 0; i < x.Length; i++) {
+            xc[i].Re = x[i];
+        }
+        FourierTransform.FFT(newInputData, FourierTransform.Direction.Forward);
+        FourierTransform.FFT(newInputData, FourierTransform.Direction.Backward);
+        */
+        
     }
 
     private void SaveOutputSignal(float[] outputSignal) {

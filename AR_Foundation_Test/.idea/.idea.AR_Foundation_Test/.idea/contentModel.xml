@@ -296,18 +296,21 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="AudioProcessing" t="Include">
+            <e p="audioRec.cs" t="Include" />
             <e p="BinaryWriterExtensions.cs" t="Include" />
             <e p="Complex.cs" t="Include" />
             <e p="ConvolutionReverb.cs" t="Include" />
+            <e p="ConvolutionReverbTest.cs" t="Include" />
+            <e p="ConvolutionTest.cs" t="Include" />
             <e p="FourierTransform.cs" t="Include" />
             <e p="Notes.txt" t="Include" />
             <e p="Tools.cs" t="Include" />
             <e p="Util.cs" t="Include" />
+            <e p="WaveFile.cs" t="Include" />
           </e>
         </e>
         <e p="StreamingAssets" t="Include">
           <e p="outputSignal.txt" t="Include" />
-          <e p="outputSignal_complex.txt" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
