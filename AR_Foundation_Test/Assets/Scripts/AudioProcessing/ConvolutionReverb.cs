@@ -12,10 +12,12 @@ using NWaves.Signals;
 public class ConvolutionReverb : MonoBehaviour {
     [SerializeField] private AudioClip input;
     [SerializeField] private AudioClip impulseResponse;
+    private AudioSource _audioSource;
+    private AudioClip _audioClip;
 
     private void Start() {
         Debug.Log("Uploading impulse response " + impulseResponse.name);
-        
+
         // get data of impulse response --> maybe instead of  using this prerecorded impulse response, we could create our own
         float[] irData = new float[impulseResponse.samples];
         impulseResponse.GetData(irData, 0);
@@ -24,13 +26,23 @@ public class ConvolutionReverb : MonoBehaviour {
         float[] inputData = new float[input.samples];
         input.GetData(inputData, 0);
 
+        _audioSource = GetComponent<AudioSource>();
+
         // ConvolutionOverlapAdd(inputData, irData);
+
         
         int outputF = Mathf.NextPowerOfTwo(inputData.Length + irData.Length - 1);
         DiscreteSignal inputSignal = new DiscreteSignal(input.frequency, inputData);
         DiscreteSignal impulseResponseSignal = new DiscreteSignal(impulseResponse.frequency, irData);
         var conv = new Convolver(outputF).Convolve(inputSignal, impulseResponseSignal);
         SaveOutputSignal(conv.Samples);
+        
+        new WaveFile().SaveAudio(Path.Combine(Application.streamingAssetsPath, "waveFile.wav"), conv.Samples.Length, 1, conv.Samples, conv.SamplingRate);
+
+
+        _audioClip = AudioClip.Create("Convolution Reverb", conv.Samples.Length, 1, conv.SamplingRate, false);
+        _audioClip.SetData(conv.Samples, 0);
+        _audioSource.clip = _audioClip;
     }
 
     /// <summary>
@@ -39,7 +51,6 @@ public class ConvolutionReverb : MonoBehaviour {
     /// <param name="inputData">Input signal data of the audio you want to apply the convolution reverberation to.</param>
     /// <param name="irData">The impulse response data that you want to convolve the input signal with.</param>
     private void ConvolutionOverlapAdd(float[] inputData, float[] irData) {
-
         int Nx = inputData.Length;
         int M = irData.Length;
         // the segment size has to be bigger than or equal to the impulse response length. So:
@@ -62,6 +73,7 @@ public class ConvolutionReverb : MonoBehaviour {
 
         // FFT of the the impulse response to transform it into the frequency domain
         FourierTransform.FFT(newIRData, FourierTransform.Direction.Forward);
+        CalculateFFT(newIRData, false);
 
         // zero padding of the input data
         Complex[] newInputData = new Complex[F];
@@ -71,7 +83,7 @@ public class ConvolutionReverb : MonoBehaviour {
         }
 
         // divide the input data into multiple segments
-        int numberSegments = (int)Math.Ceiling((float)Nx / stepSize);
+        int numberSegments = (int) Math.Ceiling((float) Nx / stepSize);
         Complex[][] inputDatas = new Complex[numberSegments][];
         for (int i = 0; i < numberSegments; i += 1) {
             inputDatas[i] = new Complex[stepSize];
@@ -105,11 +117,11 @@ public class ConvolutionReverb : MonoBehaviour {
         for (int i = 0; i < numberSegments; i++) {
             FourierTransform.FFT(outputDatas[i], FourierTransform.Direction.Backward);
         }
-        
+
         // put all y_k into a single signal y with overlap and add
         // shift each y(k) by numberOfSegments * n samples and add the results together
         // overlap and add --> final convolution looks like this --> y(k) = y_0(k) + y_1(k - N) + y_2(k - 2N) + ...
-        Complex [] outputData = new Complex[outputF];
+        Complex[] outputData = new Complex[outputF];
         for (int i = 0; i < numberSegments; i++) {
             for (int j = 0; j < stepSize; j++) {
                 int loc = j + i * stepSize;
@@ -120,18 +132,36 @@ public class ConvolutionReverb : MonoBehaviour {
         SaveOutputSignal(outputData);
     }
 
+    private void CalculateFFT(Complex[] data, bool inverse) {
+        /*
+         
+         n --> length of data array
+         
+         *           n
+            Y(k) =  sum  x(i) * exp(-i*2*pi*(i-1) * (k-1) / n), 1 <= k <= n
+                    i=1
+         */
+        int n = data.Length;
+        float[] output = new float[n];
+        for (int i = 1; i < n; i++) { }
+    }
+
     private void SaveOutputSignal(Complex[] outputSignal) {
         string filename = "outputSignal.txt";
         // save the output signal to a txt file
         File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
             outputSignal.Select(d => d.ToString()));
     }
-    
+
     private void SaveOutputSignal(float[] outputSignal) {
         string filename = "outputSignal.txt";
         // save the output signal to a txt file
         File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
             outputSignal.Select(d => d.ToString()));
+        
+        using (var stream = new FileStream(Path.Combine(Application.streamingAssetsPath, "output.wav"), FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
+            stream.AppendWaveData(outputSignal);
+        }
     }
 
     private float[] ZeroPadding(float[] data, int fftSize) {
@@ -140,9 +170,10 @@ public class ConvolutionReverb : MonoBehaviour {
         for (int i = 0; i < (fftSize - N); i++) {
             newData.Add(0);
         }
+
         return newData.ToArray();
     }
-    
+
     private Complex[] ZeroPadding(Complex[] data, int fftSize) {
         List<Complex> newData = new List<Complex>(data);
         int N = data.Length;
