@@ -17,7 +17,8 @@ public class ArManager : MonoBehaviour
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-
+    public AudioSource audioSource;
+    public AudioClip audioClip;
 
     private void Start()
     {
@@ -78,7 +79,11 @@ public class ArManager : MonoBehaviour
         }
     }
 
-
+    public void playSound()
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
+    }
 
     private bool CheckTouchPosition(out Vector2 _touchPos)
     {
@@ -87,9 +92,7 @@ public class ArManager : MonoBehaviour
             _touchPos = Input.GetTouch(0).position;
             return true;
         }
-
-
-
+        
         _touchPos = default;
         return false;
     }

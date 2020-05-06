@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -1095328717917593901}
   - component: {fileID: 4621363063544666061}
   - component: {fileID: 8799614437448569248}
+  - component: {fileID: 5164584271687868537}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -118,8 +119,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 248799cb4acba48f7b3ee842a80f788c,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 80a8515aaa7211a45a3aa7595a99f0ce, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: ddad3f6c1010a4ddf98a297525543d16, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -218,3 +219,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5164584271687868537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703807539274936688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7929fa5e730414cb1f18134aef71c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftWall: 3
+  rightWall: 3
+  floor: 22
+  ceiling: 16
+  backWall: 3
+  frontWall: 3
+  reflectivity: 1
+  reverbGainDb: 0
+  reverbBrightness: 0
+  reverbTime: 1
+  size: {x: 3, y: 5, z: 3}
