@@ -300,7 +300,7 @@
             <e p="BinaryWriterExtensions.cs" t="Include" />
             <e p="Complex.cs" t="Include" />
             <e p="ConvolutionReverb.cs" t="Include" />
-            <e p="ConvolutionReverbTest.cs" t="Include" />
+            <e p="ConvolutionReverbOverlapAdd.cs" t="Include" />
             <e p="ConvolutionTest.cs" t="Include" />
             <e p="FourierTransform.cs" t="Include" />
             <e p="Notes.txt" t="Include" />
