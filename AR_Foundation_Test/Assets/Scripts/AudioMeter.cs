@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioMeter : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public class AudioMeter : MonoBehaviour
 
     //Microphone 
     public AudioClip audioClip;
-    public bool useMicrophone;
+    public bool useMicrophone = true;
     public string selectedDevice;
+    public AudioMixerGroup mixerGroupMic, mixerGroupMaster;
 
     //average power output of the sound
     public float rmsValue;
@@ -17,7 +19,7 @@ public class AudioMeter : MonoBehaviour
     public float pitchValue;
 
     public float maxVisualScale = 25;
-    public float visualModifier = 400.0f;
+    public float visualModifier = 1000.0f;
     public float smoothSpeed = 10.0f;
     public float keepPercentage = 0.5f;
 
@@ -44,7 +46,9 @@ public class AudioMeter : MonoBehaviour
             if(Microphone.devices.Length > 0)
             {
                 selectedDevice = Microphone.devices[0].ToString();
-                source.clip = Microphone.Start(selectedDevice, true, 10, AudioSettings.outputSampleRate);
+                //source.outputAudioMixerGroup = mixerGroupMic;
+                source.clip = Microphone.Start(selectedDevice, true, 1000, 44100);
+                
             }
             else
             {
@@ -53,6 +57,7 @@ public class AudioMeter : MonoBehaviour
         }
         else
         {
+            source.outputAudioMixerGroup = mixerGroupMaster;
             source.clip = audioClip;
         }
         source.Play();

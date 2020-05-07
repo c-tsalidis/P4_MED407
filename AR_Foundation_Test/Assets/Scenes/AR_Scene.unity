@@ -787,7 +787,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 80a8515aaa7211a45a3aa7595a99f0ce, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -885,14 +885,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5db5bdf1c0ef146875c8d99bc05e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 80a8515aaa7211a45a3aa7595a99f0ce, type: 3}
+  audioClip: {fileID: 0}
   useMicrophone: 1
   selectedDevice: 
+  mixerGroupMic: {fileID: 602404966495747818, guid: 24238b2c1dc1c5b4db919c5c19208eb1,
+    type: 2}
+  mixerGroupMaster: {fileID: 24300002, guid: 24238b2c1dc1c5b4db919c5c19208eb1, type: 2}
   rmsValue: 0
   dbValue: 0
   pitchValue: 0
   maxVisualScale: 25
-  visualModifier: 400
+  visualModifier: 1000
   smoothSpeed: 10
   keepPercentage: 0.5
 --- !u!81 &852254651
@@ -1110,6 +1113,8 @@ MonoBehaviour:
   audioClip: {fileID: 0}
   useMicrophone: 0
   selectedDevice: 
+  mixerGroupMic: {fileID: 0}
+  mixerGroupMaster: {fileID: 0}
   rmsValue: 0
   dbValue: 0
   pitchValue: 0
