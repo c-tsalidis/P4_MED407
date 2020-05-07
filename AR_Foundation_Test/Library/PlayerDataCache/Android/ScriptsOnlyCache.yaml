@@ -2,9 +2,10 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ArManager
-    - AudioMeter
     - MainMenu
     - ResonanceAudioRoom
+    - Touched
+    - TouchedObject
     - pulsatingEffect
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
@@ -129,8 +130,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11362}
     - Class: 114
-      Script: {instanceID: 11368}
-    - Class: 114
       Script: {instanceID: 11376}
     - Class: 114
       Script: {instanceID: 11470}
@@ -138,6 +137,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11484}
     - Class: 114
       Script: {instanceID: 11580}
+    - Class: 114
+      Script: {instanceID: 14784}
+    - Class: 114
+      Script: {instanceID: 14866}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -975,7 +978,19 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ToggleGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TouchedObject
+  - hash:
+      serializedVersion: 2
+      Hash: 31d28540f62345e928bd27acc17663b5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Touched
   platform: 13
   scenePathNames:
   - Assets/Scenes/AR_Scene.unity
-  playerPath: /Users/tbtjems/Documents/GitHub/P4_MED407/AR_Foundation_Test/Android9_XiaomiTestBuild_6.apk
+  playerPath: C:/Users/tothl/Documents/GitHub/P4_MED407/AR_Foundation_Test/Builds/fuckme.apk
