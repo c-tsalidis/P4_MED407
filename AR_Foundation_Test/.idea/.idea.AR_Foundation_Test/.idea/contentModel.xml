@@ -52,6 +52,8 @@
           <e p="AudioMeter.cs" t="Include" />
           <e p="MainMenu.cs" t="Include" />
           <e p="pulsatingEffect.cs" t="Include" />
+          <e p="Touched.cs" t="Include" />
+          <e p="TouchedObject.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Examples &amp; Extras" t="Include">
