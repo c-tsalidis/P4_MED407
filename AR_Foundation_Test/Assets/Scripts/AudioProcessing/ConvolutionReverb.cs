@@ -53,6 +53,10 @@ public class ConvolutionReverb : MonoBehaviour {
         output = new float[fftSize];
         for (int i = 0; i < fftSize; i++) {
             output[i] = (float) multiplication[i].Re;
+            if (output[i] < -1 || output[i] > 1) {
+                output[i] /= (2 * fftSize + 1);
+                // output[i] /= 32768;
+            }
         }
         
         SaveOutputSignal(output);
@@ -71,9 +75,12 @@ public class ConvolutionReverb : MonoBehaviour {
         // get data of ir signal
         irData = new float[impulseResponse.samples];
         impulseResponse.GetData(irData, 0);
+        // File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, "impulseResponse.txt"), irData.Select(d => d.ToString()));
+        
         // get data of input signal
         inputData = new float[input.samples];
         input.GetData(inputData, 0);
+        // File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, "inputData.txt"), inputData.Select(d => d.ToString()));
         
         CalculateFftSize();
         
@@ -83,12 +90,18 @@ public class ConvolutionReverb : MonoBehaviour {
         irc = new Complex[irData.Length];
         for (int i = 0; i < irData.Length; i++) {
             irc[i].Re = irData[i];
+            if (irc[i].Re < -1 || irc[i].Re > 1) {
+                irc[i].Re /= 32768;
+            } 
         }
         
         inputData = ZeroPadding(inputData);
         inputc = new Complex[inputData.Length];
         for (int i = 0; i < inputData.Length; i++) {
             inputc[i].Re = inputData[i];
+            if (inputc[i].Re < -1 || inputc[i].Re > 1) {
+                inputc[i].Re /= 32768;
+            } 
         }
     }
     
@@ -104,8 +117,7 @@ public class ConvolutionReverb : MonoBehaviour {
     private void SaveOutputSignal(float[] outputSignal) {
         string filename = "outputSignal.txt";
         // save the output signal to a txt file
-        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename),
-            outputSignal.Select(d => d.ToString()));
+        File.WriteAllLines(Path.Combine(Application.streamingAssetsPath, filename), outputSignal.Select(d => d.ToString()));
         
         
         new WaveFile().SaveAudio(Path.Combine(Application.streamingAssetsPath, "output.wav"), outputSignal.Length, 1, outputSignal, input.frequency);

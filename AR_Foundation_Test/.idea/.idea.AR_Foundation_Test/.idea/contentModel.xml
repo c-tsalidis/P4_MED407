@@ -310,6 +310,8 @@
           </e>
         </e>
         <e p="StreamingAssets" t="Include">
+          <e p="impulseResponse.txt" t="Include" />
+          <e p="inputData.txt" t="Include" />
           <e p="outputSignal.txt" t="Include" />
         </e>
       </e>

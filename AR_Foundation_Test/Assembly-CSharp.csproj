@@ -290,7 +290,9 @@
      <Compile Include="Assets\Scripts\AudioProcessing\Util.cs" />
      <Compile Include="Assets\Scripts\AudioProcessing\WaveFile.cs" />
      <None Include="Assets\Scripts\AudioProcessing\Notes.txt" />
+     <None Include="Assets\StreamingAssets\impulseResponse.txt" />
      <None Include="Assets\StreamingAssets\outputSignal.txt" />
+     <None Include="Assets\StreamingAssets\inputData.txt" />
  <Reference Include="Unity.XR.ARKit">
  <HintPath>/Users/ctsalidis/Desktop/P4_MED407/AR_Foundation_Test/Library/ScriptAssemblies/Unity.XR.ARKit.dll</HintPath>
  </Reference>
