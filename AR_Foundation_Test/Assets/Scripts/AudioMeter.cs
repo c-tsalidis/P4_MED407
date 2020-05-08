@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Android;
 
 public class AudioMeter : MonoBehaviour
 {
@@ -43,10 +44,12 @@ public class AudioMeter : MonoBehaviour
 
         if (useMicrophone)
         {
-            if(Microphone.devices.Length > 0)
+            Permission.RequestUserPermission(Permission.Microphone);
+
+            if (Microphone.devices.Length > 0)
             {
                 selectedDevice = Microphone.devices[0].ToString();
-                //source.outputAudioMixerGroup = mixerGroupMic;
+                source.outputAudioMixerGroup = mixerGroupMic;
                 source.clip = Microphone.Start(selectedDevice, true, 1000, 44100);
                 
             }
