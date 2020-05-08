@@ -34,12 +34,26 @@ public class ArManager : MonoBehaviour
      *                                 updateround() would  _spawnedGo[i].transform.position = spheres[round + i*N]  .... roundTexttext = round + 1;
      */
     
+    
+    private static int totalRounds = 10;
+    public Vector3[] spawnPosition = new Vector3[totalRounds * 2];
+    private float randomX;
+    private float randomY;
+    private float height = 1.0f;
+    private int round = 0;
+    
     private void Start()
-    {
+    { 
+        randomX = UnityEngine.Random.Range(0.0f, 1.0f);
+         randomY = UnityEngine.Random.Range(0.0f, 1.0f);
+    
         _arRaycastManager = gameObject.GetComponent<ARRaycastManager>();
-
         _spawnedGo = new GameObject[2];
         
+        for (int i = 0; i < spawnPosition.Length; i++)
+        {
+            spawnPosition[i] = new Vector3(randomX, randomY, height);
+        }
     }
 
 
@@ -105,4 +119,18 @@ public class ArManager : MonoBehaviour
         _touchPos = default;
         return false;
     }
+    
+    
+    // Method for the rounds and placement of spheres
+    public void updateRound()
+    {
+        round++;
+        for (int i = 0; i < _spawnedGo.Length; i++)
+        {
+            _spawnedGo[i].transform.position = spawnPosition[round + i * totalRounds];
+        }
+    }
+
+
 }
+
