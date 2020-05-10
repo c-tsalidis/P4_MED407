@@ -74,7 +74,7 @@
      <Compile Include="Assets\Scripts\ArManager.cs" />
      <Compile Include="Assets\Scripts\AudioMeter.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
-     <Compile Include="Assets\Scripts\pulsatingEffect.cs" />
+     <Compile Include="Assets\Scripts\PulsatingEffect.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

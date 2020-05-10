@@ -5,132 +5,110 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 
 [RequireComponent(typeof(ARRaycastManager))]
-public class ArManager : MonoBehaviour
-{
-    [SerializeField] private GameObject[] goToPlace;
-    private GameObject[] _spawnedGo;
+[RequireComponent(typeof(ARAnchorManager))]
+[RequireComponent(typeof(ARPlaneManager))]
+public class ArManager : MonoBehaviour {
+
+    #region AR variables
+    
+    // ar managers scripts
     private ARRaycastManager _arRaycastManager;
-    private Vector2 _touchPos;
-
+    private ARAnchorManager _arAnchorManager;
+    private ARPlaneManager _arPlaneManager;
+    
+    // list containing all the ray cast hits where the user is touching in the screen
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    
+    // reference point used for instantiating everything according to its position
+    private GameObject _arAnchor;
+    
+    // touch position where the user touches the screen
+    private Vector2 _touchPos;
+    
+    // has the reference point (ar anchor) been set?
+    private bool _isArAnchorSet;
 
-    public AudioSource audioSource;
-    public AudioClip audioClip;
+    #endregion
 
-    public Text roundText;
-    /*
-     * We have N rounds --> N = 10
-     * We would then need to store the corridnates of each sphere 10 times in a vector3 array
-     * Vector3 spheres = new Vector3 [N times amount of spheres] 
-     * Populate the cordinates arrays with random positions
-     * math.random
-     *
-     * int round = 0
-     * Then each round
-     * When the user clicks on "NEXT"... {round++.. updateRound() }
-     *                                 updateround() would  _spawnedGo[i].transform.position = spheres[round + i*N]  .... roundTexttext = round + 1;
-     */
+    #region Scene setup and functionality variables
+
+    // rounds variables
+    private int _round = -1; // index for the currently playing round
+    private int _previousRound;
+    [SerializeField] private int totalRounds = 10; // total amount of rounds
     
+    // array containing the objects to be place into the ar view
+    [SerializeField] private GameObject[] objectsToPlace;
     
-    private static int totalRounds = 10;
-    public Vector3[] spawnPosition = new Vector3[totalRounds * 2];
-    private float randomX;
-    private float randomY;
-    private float height = 1.0f;
-    private int round = 0;
+    // array of all the spawning positions for the objects to be placed
+    private Vector3[] _spawnPosition;
+
+    #endregion
+
+    #region UI Elements
+
+    // ui text corresponding to the current round
+    [SerializeField] private Text roundText;
     
-    private void Start()
-    { 
-        randomX = UnityEngine.Random.Range(0.0f, 1.0f);
-         randomY = UnityEngine.Random.Range(0.0f, 1.0f);
-    
+    #endregion
+
+    private void Start() {
+        // ar setup
         _arRaycastManager = gameObject.GetComponent<ARRaycastManager>();
-        _spawnedGo = new GameObject[2];
-        
-        for (int i = 0; i < spawnPosition.Length; i++)
-        {
-            spawnPosition[i] = new Vector3(randomX, randomY, height);
+        _arAnchorManager = gameObject.GetComponent<ARAnchorManager>();
+        _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
+
+        // scene setup
+        _spawnPosition = new Vector3[totalRounds * 2];
+
+        for (int i = 0; i < _spawnPosition.Length; i++) {
+            _spawnPosition[i] = new Vector3(Random.Range(0, 3), Random.Range(0, 3), 1);
+        }
+
+        // deactivate the objects to place until the reference point has been set
+        for (int i = 0; i < objectsToPlace.Length; i++) {
+            objectsToPlace[i].SetActive(false);
         }
     }
 
 
-    private void Update()
-    {
-        // Debug.Log("Time Since Loaded : " + Time.timeSinceLevelLoad);
-
-        if (!CheckTouchPosition(out _touchPos))
-        {
-            return;
-        }
-
+    private void Update() {
         // Play sound on hit
-        if (Input.touchCount > 0)
-        {
+        if (Input.touchCount > 0) {
             var touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray, out hit, 1000))
-                {
-                    if (hit.transform.CompareTag("Sphere"))
-                    {
-                        hit.transform.GetComponent<AudioSource>().Play();
-                    }
+            _touchPos = touch.position;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(_touchPos);
+            if (Physics.Raycast(ray, out hit, 1000)) {
+                if (hit.transform.CompareTag("Sphere")) {
+                    hit.transform.GetComponent<AudioSource>().Play();
                 }
             }
         }
 
-
-        //Spawning of spheres
-        if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon))
-        {
-            var hitPose = hits[0].pose;
-
-            for (int i = 0; i < goToPlace.Length; i++)
-            {
-                // ReSharper disable once Unity.PerformanceCriticalCodeNullComparison
-                if (_spawnedGo[i] == null)
-                {
-                    _spawnedGo[i] = Instantiate(goToPlace[i], hitPose.position, hitPose.rotation);
-                }
-                else
-                {
-                    var xNew = i * 5;
-                    _spawnedGo[i].transform.position = hitPose.position + new Vector3(xNew, 0, 0);
-                }
+        if (!_isArAnchorSet) {
+            if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon)) {
+                var hitPose = hits[0].pose;
+                _arAnchor = _arAnchorManager.AddAnchor(hitPose).gameObject;
+                _isArAnchorSet = true;
+                _arPlaneManager.detectionMode = PlaneDetectionMode.None;
+                UpdateRound();
             }
         }
     }
-
-
-    // Checks where screen is touched
-    private bool CheckTouchPosition(out Vector2 _touchPos)
-    {
-        if (Input.touchCount > 0)
-        {
-            _touchPos = Input.GetTouch(0).position;
-            return true;
-        }
-
-        _touchPos = default;
-        return false;
-    }
     
-    
-    // Method for the rounds and placement of spheres
-    public void updateRound()
-    {
-        round++;
-        for (int i = 0; i < _spawnedGo.Length; i++)
-        {
-            _spawnedGo[i].transform.position = spawnPosition[round + i * totalRounds];
+    /// <summary>
+    /// Method for the rounds and placement of spheres
+    /// </summary>
+    public void UpdateRound() {
+        _round++;
+        roundText.text = "ROUND " + _round + 1;
+        for (int i = 0; i < objectsToPlace.Length; i++) {
+            objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
         }
     }
-
-
 }
-
