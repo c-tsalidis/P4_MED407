@@ -21,7 +21,7 @@ IL2CPP_EXTERN_C_END
 
 
 extern const Il2CppMethodSpec g_Il2CppMethodSpecTable[];
-const Il2CppMethodSpec g_Il2CppMethodSpecTable[16864] = 
+const Il2CppMethodSpec g_Il2CppMethodSpecTable[16865] = 
 {
 	{ 0, 0, -1 } /* System.Void <>f__AnonymousType0`1<System.Object>::.ctor(<message>j__TPar) */,
 	{ 1, 0, -1 } /* System.Boolean <>f__AnonymousType0`1<System.Object>::Equals(System.Object) */,
@@ -3199,9 +3199,10 @@ const Il2CppMethodSpec g_Il2CppMethodSpecTable[16864] =
 	{ 11820, -1, 1740 } /* !!0 UnityEngine.GameObject::GetComponent<UnityEngine.XR.ARFoundation.ARRaycastManager>() */,
 	{ 11820, -1, 1745 } /* !!0 UnityEngine.GameObject::GetComponent<UnityEngine.XR.ARFoundation.ARAnchorManager>() */,
 	{ 11820, -1, 1746 } /* !!0 UnityEngine.GameObject::GetComponent<UnityEngine.XR.ARFoundation.ARPlaneManager>() */,
-	{ 11933, -1, 922 } /* !!0 UnityEngine.Object::Instantiate<UnityEngine.GameObject>(!!0,UnityEngine.Vector3,UnityEngine.Quaternion) */,
 	{ 11785, -1, 1343 } /* !!0 UnityEngine.Component::GetComponent<UnityEngine.AudioSource>() */,
 	{ 8846, 1237, -1 } /* !0 System.Collections.Generic.List`1<UnityEngine.XR.ARFoundation.ARRaycastHit>::get_Item(System.Int32) */,
+	{ 11933, -1, 922 } /* !!0 UnityEngine.Object::Instantiate<UnityEngine.GameObject>(!!0,UnityEngine.Vector3,UnityEngine.Quaternion) */,
+	{ 11820, -1, 1343 } /* !!0 UnityEngine.GameObject::GetComponent<UnityEngine.AudioSource>() */,
 	{ 8838, 1237, -1 } /* System.Void System.Collections.Generic.List`1<UnityEngine.XR.ARFoundation.ARRaycastHit>::.ctor() */,
 	{ 12117, 8, -1 } /* System.Void UnityEngine.Events.UnityAction`1<System.String>::.ctor(System.Object,System.IntPtr) */,
 	{ 12122, 8, -1 } /* System.Void UnityEngine.Events.UnityEvent`1<System.String>::AddListener(UnityEngine.Events.UnityAction`1<!0>) */,

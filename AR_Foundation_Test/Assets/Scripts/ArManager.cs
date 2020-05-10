@@ -96,8 +96,11 @@ public class ArManager : MonoBehaviour {
 
     private void SetUpObjectsToPlace() {
         for (int i = 0; i < _spawnPosition.Length; i++) {
-            var pos = _arAnchor.transform.position;
-            _spawnPosition[i] = new Vector3(Random.Range(pos.x, pos.x + 5), 1, Random.Range(pos.z, pos.z + 5));
+            // var pos = _arAnchor.transform.position;
+            // _spawnPosition[i] = new Vector3(Random.Range(pos.x, pos.x + 5), pos.y + 1, Random.Range(pos.z, pos.z + 5));
+            // there's actually no need for an anchor manager in our case, because the position of the objects is placed according to the phone's current position
+            // TODO --> Get rid of the anchor manager and anchor gamobject, as there is no need for them (but keep the touch to start with rounds thing)
+            _spawnPosition[i] = new Vector3(Random.Range(0, 5), 1, Random.Range(0, 5));
         }
 
         // instantiate and deactivate the objects to place until the reference point has been set
@@ -116,6 +119,8 @@ public class ArManager : MonoBehaviour {
         for (int i = 0; i < objectsToPlace.Length; i++) {
             objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
             objectsToPlace[i].GetComponent<AudioSource>().Play();
+            objectsToPlace[i].GetComponent<Renderer>().material.color = new Color(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1));
+            Debug.Log("Position of object " + objectsToPlace[i].name + "at round " + _round + ": " + objectsToPlace[i].transform.position);
         }
     }
 }
