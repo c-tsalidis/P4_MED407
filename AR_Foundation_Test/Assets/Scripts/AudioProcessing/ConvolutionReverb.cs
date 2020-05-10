@@ -53,17 +53,13 @@ public class ConvolutionReverb : MonoBehaviour {
         output = new float[fftSize];
         for (int i = 0; i < fftSize; i++) {
             output[i] = (float) multiplication[i].Re;
-            if (output[i] < -1 || output[i] > 1) {
+            // if (output[i] < -1 || output[i] > 1) {
                 output[i] /= (2 * fftSize + 1);
                 // output[i] /= 32768;
-            }
+            // }
         }
         
         SaveOutputSignal(output);
-    }
-
-    private Complex ComplexMultiply(Complex a, Complex b) {
-        return new Complex(a.Re * b.Re - a.Im * b.Im, a.Re * b.Im + a.Im * b.Re);
     }
 
     private void CalculateFftSize() {
@@ -84,24 +80,18 @@ public class ConvolutionReverb : MonoBehaviour {
         
         CalculateFftSize();
         
-        
         // change values accordingly of both signals --> zero padding + complex numbers
         irData = ZeroPadding(irData);
         irc = new Complex[irData.Length];
         for (int i = 0; i < irData.Length; i++) {
-            irc[i].Re = irData[i];
-            if (irc[i].Re < -1 || irc[i].Re > 1) {
-                irc[i].Re /= 32768;
-            } 
+            irc[i].Re = irData[i] / 32768;
         }
         
         inputData = ZeroPadding(inputData);
         inputc = new Complex[inputData.Length];
         for (int i = 0; i < inputData.Length; i++) {
-            inputc[i].Re = inputData[i];
-            if (inputc[i].Re < -1 || inputc[i].Re > 1) {
-                inputc[i].Re /= 32768;
-            } 
+            inputc[i].Re = inputData[i] / 32768;
+            
         }
     }
     
