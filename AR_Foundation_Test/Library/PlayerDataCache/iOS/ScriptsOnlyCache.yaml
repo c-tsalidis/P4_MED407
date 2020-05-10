@@ -2,10 +2,9 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ArManager
-    - AudioMeter
     - MainMenu
+    - PulsatingEffect
     - ResonanceAudioRoom
-    - pulsatingEffect
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -19,6 +18,7 @@ ScriptsOnlyBuild:
     Unity.XR.ARCore.Editor.dll:
     - UnityEditor.XR.ARCore.ARCoreSettings
     Unity.XR.ARFoundation.dll:
+    - UnityEngine.XR.ARFoundation.ARAnchorManager
     - UnityEngine.XR.ARFoundation.ARCameraBackground
     - UnityEngine.XR.ARFoundation.ARCameraManager
     - UnityEngine.XR.ARFoundation.ARInputManager
@@ -69,6 +69,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
@@ -108,6 +110,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15988}
     - Class: 114
+      Script: {instanceID: 16054}
+    - Class: 114
       Script: {instanceID: 16056}
     - Class: 114
       Script: {instanceID: 16126}
@@ -119,8 +123,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 16238}
     - Class: 114
       Script: {instanceID: 16328}
-    - Class: 114
-      Script: {instanceID: 16370}
     - Class: 114
       Script: {instanceID: 16378}
     - Class: 114
@@ -271,7 +273,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: db28d1eb571c817b9c5de44ae5222f50
+      Hash: b467cc97b70ddbb80c46c2036ef55022
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ArManager
@@ -874,7 +876,7 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: pulsatingEffect
+    className: PulsatingEffect
   - hash:
       serializedVersion: 2
       Hash: e63944317d2f5958e31963668bb29158
@@ -1053,4 +1055,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/MenuScene.unity
   - Assets/Scenes/AR_Scene.unity
-  playerPath: /Users/ctsalidis/Desktop/App_Builds/iosBuild
+  playerPath: /Users/ctsalidis/Desktop/App_Builds/AR_Audio_Build

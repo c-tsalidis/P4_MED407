@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
@@ -52,7 +52,7 @@ public class ArManager : MonoBehaviour {
     #region UI Elements
 
     // ui text corresponding to the current round
-    [SerializeField] private Text roundText;
+    [SerializeField] private TextMeshProUGUI roundText;
     
     #endregion
 
@@ -63,16 +63,7 @@ public class ArManager : MonoBehaviour {
         _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
 
         // scene setup
-        _spawnPosition = new Vector3[totalRounds * 2];
-
-        for (int i = 0; i < _spawnPosition.Length; i++) {
-            _spawnPosition[i] = new Vector3(Random.Range(0, 3), Random.Range(0, 3), 1);
-        }
-
-        // deactivate the objects to place until the reference point has been set
-        for (int i = 0; i < objectsToPlace.Length; i++) {
-            objectsToPlace[i].SetActive(false);
-        }
+        _spawnPosition = new Vector3[totalRounds * objectsToPlace.Length];
     }
 
 
@@ -96,19 +87,35 @@ public class ArManager : MonoBehaviour {
                 _arAnchor = _arAnchorManager.AddAnchor(hitPose).gameObject;
                 _isArAnchorSet = true;
                 _arPlaneManager.detectionMode = PlaneDetectionMode.None;
+                SetUpObjectsToPlace();
+                // update the round to instantiate the objects to place and start with the rounds
                 UpdateRound();
             }
         }
     }
-    
+
+    private void SetUpObjectsToPlace() {
+        for (int i = 0; i < _spawnPosition.Length; i++) {
+            var pos = _arAnchor.transform.position;
+            _spawnPosition[i] = new Vector3(Random.Range(pos.x, pos.x + 5), 1, Random.Range(pos.z, pos.z + 5));
+        }
+
+        // instantiate and deactivate the objects to place until the reference point has been set
+        for (int i = 0; i < objectsToPlace.Length; i++) {
+            objectsToPlace[i] = Instantiate(objectsToPlace[i], Vector3.up, Quaternion.identity);
+        }
+    }
+
     /// <summary>
     /// Method for the rounds and placement of spheres
     /// </summary>
     public void UpdateRound() {
         _round++;
-        roundText.text = "ROUND " + _round + 1;
+        Debug.Log("Updating round to round " + _round);
+        roundText.text = "ROUND " + (_round + 1);
         for (int i = 0; i < objectsToPlace.Length; i++) {
             objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
+            objectsToPlace[i].GetComponent<AudioSource>().Play();
         }
     }
 }
