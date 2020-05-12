@@ -3,32 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using Random = UnityEngine.Random;
-
 
 [RequireComponent(typeof(ARRaycastManager))]
 [RequireComponent(typeof(ARAnchorManager))]
 [RequireComponent(typeof(ARPlaneManager))]
 public class ArManager : MonoBehaviour {
-
     #region AR variables
-    
+
     // ar managers scripts
     private ARRaycastManager _arRaycastManager;
     private ARAnchorManager _arAnchorManager;
     private ARPlaneManager _arPlaneManager;
-    
+
     // list containing all the ray cast hits where the user is touching in the screen
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    
+
     // reference point used for instantiating everything according to its position
     private GameObject _arAnchor;
-    
+
     // touch position where the user touches the screen
     private Vector2 _touchPos;
-    
+
     // has the reference point (ar anchor) been set?
     private bool _isArAnchorSet;
 
@@ -40,12 +39,25 @@ public class ArManager : MonoBehaviour {
     private int _round = -1; // index for the currently playing round
     private int _previousRound;
     [SerializeField] private int totalRounds = 10; // total amount of rounds
+
+    // array containing the objects to be placed into the ar view
+    private GameObject[] objectsToPlace = new GameObject[2]; // two objects to be placed per round
+    [SerializeField] private GameObject go_reverbHrtf;
+    [SerializeField] private GameObject go_reverb;
+    [SerializeField] private GameObject go_hrtf;
+    [SerializeField] private GameObject go_none;
+
+    // is the scene set up?
+    private bool _isSceneSetup = false;
     
-    // array containing the objects to be place into the ar view
-    [SerializeField] private GameObject[] objectsToPlace;
-    
+    // array containing all the colors of the gameobjects
+    private Color[] _colors;
+
     // array of all the spawning positions for the objects to be placed
     private Vector3[] _spawnPosition;
+
+    // the output audio mixer for resonance audio --> Resonance audio mixer
+    [SerializeField] private AudioMixer resonanceAudioMixer;
 
     #endregion
 
@@ -53,8 +65,13 @@ public class ArManager : MonoBehaviour {
 
     // ui text corresponding to the current round
     [SerializeField] private TextMeshProUGUI roundText;
-    
+    [SerializeField] private GameObject testFinishedPanel;
+
     #endregion
+
+
+    private string arrayOfCoordinates;
+    private string arrayOfColors;
 
     private void Start() {
         // ar setup
@@ -63,7 +80,8 @@ public class ArManager : MonoBehaviour {
         _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
 
         // scene setup
-        _spawnPosition = new Vector3[totalRounds * objectsToPlace.Length];
+        _spawnPosition = new Vector3[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
+        _colors = new Color[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
     }
 
 
@@ -80,47 +98,87 @@ public class ArManager : MonoBehaviour {
                 }
             }
         }
-
-        if (!_isArAnchorSet) {
-            if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon)) {
-                var hitPose = hits[0].pose;
-                _arAnchor = _arAnchorManager.AddAnchor(hitPose).gameObject;
-                _isArAnchorSet = true;
-                _arPlaneManager.detectionMode = PlaneDetectionMode.None;
-                SetUpObjectsToPlace();
-                // update the round to instantiate the objects to place and start with the rounds
-                UpdateRound();
-            }
-        }
     }
 
     private void SetUpObjectsToPlace() {
         for (int i = 0; i < _spawnPosition.Length; i++) {
-            // var pos = _arAnchor.transform.position;
-            // _spawnPosition[i] = new Vector3(Random.Range(pos.x, pos.x + 5), pos.y + 1, Random.Range(pos.z, pos.z + 5));
-            // there's actually no need for an anchor manager in our case, because the position of the objects is placed according to the phone's current position
-            // TODO --> Get rid of the anchor manager and anchor gamobject, as there is no need for them (but keep the touch to start with rounds thing)
-            _spawnPosition[i] = new Vector3(Random.Range(0, 5), 1, Random.Range(0, 5));
+            _spawnPosition[i] = new Vector3(Random.Range(0, 3), 0.5f, Random.Range(0, 3));
+            arrayOfCoordinates += "new Vector3" + _spawnPosition[i] + ",  "; // to get a string of all the random values to predefine the random values (for evaluating the testing of the prototype)
+
+            int random = (int) Random.Range(0, 2);
+            Color[] c = new[] { Color.blue, Color.magenta };
+            _colors[i] = c[random];
+            string[] cs = new[] {"Color.blue", "Color.magenta"};
+            arrayOfColors += cs[random] + ",  ";
         }
 
-        // instantiate and deactivate the objects to place until the reference point has been set
-        for (int i = 0; i < objectsToPlace.Length; i++) {
-            objectsToPlace[i] = Instantiate(objectsToPlace[i], Vector3.up, Quaternion.identity);
-        }
+        Debug.Log(arrayOfCoordinates);
+        Debug.Log(arrayOfColors);
+
+        go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
+        go_reverbHrtf.SetActive(false);
+        
+        go_hrtf = Instantiate(go_hrtf, Vector3.up, Quaternion.identity);
+        go_hrtf.SetActive(false);
+        
+        go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);
+        go_none.SetActive(false);
+        
+        go_reverb = Instantiate(go_reverb, Vector3.up, Quaternion.identity);
+        go_reverb.SetActive(false);
+
+        _isSceneSetup = true;
     }
 
     /// <summary>
     /// Method for the rounds and placement of spheres
     /// </summary>
-    public void UpdateRound() {
-        _round++;
+    public void UpdateRound(bool forward) {
+        if(!_isSceneSetup) SetUpObjectsToPlace();
+        if (forward) _round++;
+        else _round--;
+        
+        // check if the test has finished. If so, inform the user
+        if (_round > (totalRounds * 3 - 1)) {
+            testFinishedPanel.SetActive(true);
+            return;
+        }
+        
         Debug.Log("Updating round to round " + _round);
         roundText.text = "ROUND " + (_round + 1);
+
+        // first deactivate the current placed objects
+        foreach (var o in objectsToPlace) if(o != null) o.SetActive(false);
+        
+        // in here change characteristics of the audio according to the set of rounds this round corresponds to
+        // first set --> sphere with nothing + sphere with reverb and hrtf
+        if (_round % 3 == 0) {
+            // sphere has both reverb and hrtf
+            objectsToPlace[0] = go_reverbHrtf;
+            // sphere 1 has nothing
+            objectsToPlace[1] = go_none;
+        }
+        // second set --> both spheres with hrtf, one sphere with reverb
+        else if (_round % 3 == 1) {
+            objectsToPlace[0] = go_reverbHrtf;
+            objectsToPlace[1] = go_hrtf;
+        }
+        // third set --> both spheres with reverb, one with hrtf
+        else if (_round % 3 == 2) {
+            objectsToPlace[0] = go_reverbHrtf;
+            objectsToPlace[1] = go_reverb;
+        }
+
         for (int i = 0; i < objectsToPlace.Length; i++) {
+            if(!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
             objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
-            objectsToPlace[i].GetComponent<AudioSource>().Play();
-            objectsToPlace[i].GetComponent<Renderer>().material.color = new Color(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1));
-            Debug.Log("Position of object " + objectsToPlace[i].name + "at round " + _round + ": " + objectsToPlace[i].transform.position);
+            // objectsToPlace[i].GetComponent<AudioSource>().Play();
+
+            int loc = _round + i * totalRounds * 3;
+            objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color = _colors[loc];
+            Debug.Log("Position of object " + objectsToPlace[i].name + "at round " + _round + ": " +
+                      objectsToPlace[i].transform.position + " | With color " +
+                      objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color);
         }
     }
 }

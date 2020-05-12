@@ -21,7 +21,7 @@ IL2CPP_EXTERN_C_END
 
 
 extern const Il2CppMethodSpec g_Il2CppMethodSpecTable[];
-const Il2CppMethodSpec g_Il2CppMethodSpecTable[16865] = 
+const Il2CppMethodSpec g_Il2CppMethodSpecTable[16866] = 
 {
 	{ 0, 0, -1 } /* System.Void <>f__AnonymousType0`1<System.Object>::.ctor(<message>j__TPar) */,
 	{ 1, 0, -1 } /* System.Boolean <>f__AnonymousType0`1<System.Object>::Equals(System.Object) */,
@@ -3203,6 +3203,7 @@ const Il2CppMethodSpec g_Il2CppMethodSpecTable[16865] =
 	{ 8846, 1237, -1 } /* !0 System.Collections.Generic.List`1<UnityEngine.XR.ARFoundation.ARRaycastHit>::get_Item(System.Int32) */,
 	{ 11933, -1, 922 } /* !!0 UnityEngine.Object::Instantiate<UnityEngine.GameObject>(!!0,UnityEngine.Vector3,UnityEngine.Quaternion) */,
 	{ 11820, -1, 1343 } /* !!0 UnityEngine.GameObject::GetComponent<UnityEngine.AudioSource>() */,
+	{ 11820, -1, 1359 } /* !!0 UnityEngine.GameObject::GetComponent<UnityEngine.Renderer>() */,
 	{ 8838, 1237, -1 } /* System.Void System.Collections.Generic.List`1<UnityEngine.XR.ARFoundation.ARRaycastHit>::.ctor() */,
 	{ 12117, 8, -1 } /* System.Void UnityEngine.Events.UnityAction`1<System.String>::.ctor(System.Object,System.IntPtr) */,
 	{ 12122, 8, -1 } /* System.Void UnityEngine.Events.UnityEvent`1<System.String>::AddListener(UnityEngine.Events.UnityAction`1<!0>) */,
