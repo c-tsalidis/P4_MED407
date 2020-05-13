@@ -231,14 +231,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7929fa5e730414cb1f18134aef71c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWall: 4
-  rightWall: 4
-  floor: 14
-  ceiling: 15
-  backWall: 4
-  frontWall: 4
+  leftWall: 3
+  rightWall: 3
+  floor: 22
+  ceiling: 16
+  backWall: 3
+  frontWall: 3
   reflectivity: 1
   reverbGainDb: 0
   reverbBrightness: 0
   reverbTime: 1
-  size: {x: 1, y: 1, z: 1}
+  size: {x: 3, y: 5, z: 3}

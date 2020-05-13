@@ -49,7 +49,7 @@ public class ArManager : MonoBehaviour {
 
     // is the scene set up?
     private bool _isSceneSetup = false;
-    
+
     // array containing all the colors of the gameobjects
     private Color[] _colors;
 
@@ -82,6 +82,8 @@ public class ArManager : MonoBehaviour {
         // scene setup
         _spawnPosition = new Vector3[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
         _colors = new Color[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
+        
+        UpdateRound(true);
     }
 
 
@@ -103,10 +105,12 @@ public class ArManager : MonoBehaviour {
     private void SetUpObjectsToPlace() {
         for (int i = 0; i < _spawnPosition.Length; i++) {
             _spawnPosition[i] = new Vector3(Random.Range(0, 3), 0.5f, Random.Range(0, 3));
-            arrayOfCoordinates += "new Vector3" + _spawnPosition[i] + ",  "; // to get a string of all the random values to predefine the random values (for evaluating the testing of the prototype)
+            arrayOfCoordinates +=
+                "new Vector3" + _spawnPosition[i] +
+                ",  "; // to get a string of all the random values to predefine the random values (for evaluating the testing of the prototype)
 
             int random = (int) Random.Range(0, 2);
-            Color[] c = new[] { Color.blue, Color.magenta };
+            Color[] c = new[] {Color.blue, Color.magenta};
             _colors[i] = c[random];
             string[] cs = new[] {"Color.blue", "Color.magenta"};
             arrayOfColors += cs[random] + ",  ";
@@ -117,13 +121,13 @@ public class ArManager : MonoBehaviour {
 
         go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
         go_reverbHrtf.SetActive(false);
-        
+
         go_hrtf = Instantiate(go_hrtf, Vector3.up, Quaternion.identity);
         go_hrtf.SetActive(false);
-        
+
         go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);
         go_none.SetActive(false);
-        
+
         go_reverb = Instantiate(go_reverb, Vector3.up, Quaternion.identity);
         go_reverb.SetActive(false);
 
@@ -134,22 +138,24 @@ public class ArManager : MonoBehaviour {
     /// Method for the rounds and placement of spheres
     /// </summary>
     public void UpdateRound(bool forward) {
-        if(!_isSceneSetup) SetUpObjectsToPlace();
+        if (!_isSceneSetup) SetUpObjectsToPlace();
         if (forward) _round++;
         else _round--;
-        
+
         // check if the test has finished. If so, inform the user
         if (_round > (totalRounds * 3 - 1)) {
             testFinishedPanel.SetActive(true);
             return;
         }
-        
+
         Debug.Log("Updating round to round " + _round);
         roundText.text = "ROUND " + (_round + 1);
 
         // first deactivate the current placed objects
-        foreach (var o in objectsToPlace) if(o != null) o.SetActive(false);
-        
+        foreach (var o in objectsToPlace)
+            if (o != null)
+                o.SetActive(false);
+
         // in here change characteristics of the audio according to the set of rounds this round corresponds to
         // first set --> sphere with nothing + sphere with reverb and hrtf
         if (_round % 3 == 0) {
@@ -170,14 +176,15 @@ public class ArManager : MonoBehaviour {
         }
 
         for (int i = 0; i < objectsToPlace.Length; i++) {
-            if(!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
+            if (!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
             objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
             // objectsToPlace[i].GetComponent<AudioSource>().Play();
 
             int loc = _round + i * totalRounds * 3;
             objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color = _colors[loc];
-            Debug.Log("Position of object " + objectsToPlace[i].name + "at round " + _round + ": " +
-                      objectsToPlace[i].transform.position + " | With color " +
+            Debug.Log("Position of object " + objectsToPlace[i].name + " | Index: " + i + " | Round: " + _round +
+                      " --> " +
+                      objectsToPlace[i].transform.position + " | Color " +
                       objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color);
         }
     }
