@@ -76,21 +76,14 @@ public class ArManager : MonoBehaviour {
 
     // array containing all the colors of the game objects
     private Color[] _colors = new[] {
-        Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.magenta, Color.blue, Color.magenta,
-        Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.magenta, Color.blue, Color.magenta,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.magenta, Color.blue, Color.magenta, Color.blue,
-        Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.magenta, Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.magenta, Color.magenta, Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta, Color.magenta,
+        Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.magenta,
+        Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.blue, Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue, Color.blue,
+        Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.blue,
     };
 
     // the output audio mixer for resonance audio --> Resonance audio mixer
