@@ -2,9 +2,11 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ArManager
+    - AudioMeter
     - MainMenu
     - PulsatingEffect
     - ResonanceAudioRoom
+    - ResonanceAudioSource
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -15,8 +17,6 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
-    Unity.XR.ARCore.Editor.dll:
-    - UnityEditor.XR.ARCore.ARCoreSettings
     Unity.XR.ARFoundation.dll:
     - UnityEngine.XR.ARFoundation.ARAnchorManager
     - UnityEngine.XR.ARFoundation.ARCameraBackground
@@ -84,53 +84,55 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 14802}
+      Script: {instanceID: 9732}
     - Class: 114
-      Script: {instanceID: 14808}
+      Script: {instanceID: 9740}
     - Class: 114
-      Script: {instanceID: 14924}
+      Script: {instanceID: 9864}
     - Class: 114
-      Script: {instanceID: 14970}
+      Script: {instanceID: 9910}
     - Class: 114
-      Script: {instanceID: 14998}
+      Script: {instanceID: 9940}
     - Class: 114
-      Script: {instanceID: 15112}
+      Script: {instanceID: 10056}
     - Class: 114
-      Script: {instanceID: 15300}
+      Script: {instanceID: 10244}
     - Class: 114
-      Script: {instanceID: 15346}
+      Script: {instanceID: 10290}
     - Class: 114
-      Script: {instanceID: 15528}
+      Script: {instanceID: 10478}
     - Class: 114
-      Script: {instanceID: 15550}
+      Script: {instanceID: 10502}
     - Class: 114
-      Script: {instanceID: 15788}
+      Script: {instanceID: 10744}
     - Class: 114
-      Script: {instanceID: 15976}
+      Script: {instanceID: 10800}
     - Class: 114
-      Script: {instanceID: 15988}
+      Script: {instanceID: 10942}
     - Class: 114
-      Script: {instanceID: 16054}
+      Script: {instanceID: 10954}
     - Class: 114
-      Script: {instanceID: 16056}
+      Script: {instanceID: 11024}
     - Class: 114
-      Script: {instanceID: 16126}
+      Script: {instanceID: 11026}
     - Class: 114
-      Script: {instanceID: 16168}
+      Script: {instanceID: 11100}
     - Class: 114
-      Script: {instanceID: 16212}
+      Script: {instanceID: 11144}
     - Class: 114
-      Script: {instanceID: 16238}
+      Script: {instanceID: 11194}
     - Class: 114
-      Script: {instanceID: 16328}
+      Script: {instanceID: 11220}
     - Class: 114
-      Script: {instanceID: 16378}
+      Script: {instanceID: 11316}
     - Class: 114
-      Script: {instanceID: 16472}
+      Script: {instanceID: 11372}
     - Class: 114
-      Script: {instanceID: 16486}
+      Script: {instanceID: 11466}
     - Class: 114
-      Script: {instanceID: 16582}
+      Script: {instanceID: 11480}
+    - Class: 114
+      Script: {instanceID: 11576}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -174,6 +176,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -181,45 +185,47 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 14802}
+      Script: {instanceID: 9732}
     - Class: 114
-      Script: {instanceID: 14808}
+      Script: {instanceID: 9740}
     - Class: 114
-      Script: {instanceID: 14970}
+      Script: {instanceID: 9910}
     - Class: 114
-      Script: {instanceID: 15346}
+      Script: {instanceID: 10290}
     - Class: 114
-      Script: {instanceID: 15378}
+      Script: {instanceID: 10322}
     - Class: 114
-      Script: {instanceID: 15550}
+      Script: {instanceID: 10502}
     - Class: 114
-      Script: {instanceID: 15788}
+      Script: {instanceID: 10744}
     - Class: 114
-      Script: {instanceID: 15976}
+      Script: {instanceID: 10942}
     - Class: 114
-      Script: {instanceID: 15988}
+      Script: {instanceID: 10954}
     - Class: 114
-      Script: {instanceID: 15998}
+      Script: {instanceID: 10966}
     - Class: 114
-      Script: {instanceID: 16126}
+      Script: {instanceID: 11100}
     - Class: 114
-      Script: {instanceID: 16168}
+      Script: {instanceID: 11144}
     - Class: 114
-      Script: {instanceID: 16212}
+      Script: {instanceID: 11194}
     - Class: 114
-      Script: {instanceID: 16238}
+      Script: {instanceID: 11220}
     - Class: 114
-      Script: {instanceID: 16366}
+      Script: {instanceID: 11358}
     - Class: 114
-      Script: {instanceID: 16378}
+      Script: {instanceID: 11364}
     - Class: 114
-      Script: {instanceID: 16472}
+      Script: {instanceID: 11372}
     - Class: 114
-      Script: {instanceID: 16486}
+      Script: {instanceID: 11466}
     - Class: 114
-      Script: {instanceID: 16582}
+      Script: {instanceID: 11480}
     - Class: 114
-      Script: {instanceID: 16610}
+      Script: {instanceID: 11576}
+    - Class: 114
+      Script: {instanceID: 11604}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -273,7 +279,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: b467cc97b70ddbb80c46c2036ef55022
+      Hash: aa35e2e30dfb794b3a4ddf24811113b9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ArManager
@@ -891,7 +897,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: ccb8e1ce6a41c8ccb6401a1320ab9833
+      Hash: ef6bf813b06df084c5c3ff5ae4d8e19e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AudioMeter
@@ -1055,4 +1061,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/MenuScene.unity
   - Assets/Scenes/AR_Scene.unity
-  playerPath: /Users/ctsalidis/Desktop/App_Builds/AR_Audio_Build
+  playerPath: /Users/ctsalidis/Desktop/App_Builds/AR_Audio_Build_Final
