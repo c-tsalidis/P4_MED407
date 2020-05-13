@@ -50,11 +50,48 @@ public class ArManager : MonoBehaviour {
     // is the scene set up?
     private bool _isSceneSetup = false;
 
-    // array containing all the colors of the gameobjects
-    private Color[] _colors;
-
     // array of all the spawning positions for the objects to be placed
-    private Vector3[] _spawnPosition;
+    private Vector3[] _spawnPosition = new[] {
+        new Vector3(3.0f, 1.0f, 1.0f), new Vector3(1.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 0.0f),
+        new Vector3(2.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(2.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 2.0f),
+        new Vector3(2.0f, 1.0f, 3.0f), new Vector3(0.0f, 1.0f, 3.0f), new Vector3(0.0f, 1.0f, 3.0f),
+        new Vector3(1.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 1.0f),
+        new Vector3(1.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 3.0f), new Vector3(1.0f, 1.0f, 3.0f),
+        new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 2.0f),
+        new Vector3(0.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 2.0f), new Vector3(0.0f, 1.0f, 2.0f),
+        new Vector3(0.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 0.0f), new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(0.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(1.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 2.0f), new Vector3(0.0f, 1.0f, 1.0f),
+        new Vector3(0.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 0.0f), new Vector3(2.0f, 1.0f, 1.0f),
+        new Vector3(1.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 1.0f),
+        new Vector3(1.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 2.0f),
+        new Vector3(0.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(1.0f, 1.0f, 0.0f), new Vector3(1.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 0.0f),
+        new Vector3(2.0f, 1.0f, 0.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 3.0f),
+        new Vector3(1.0f, 1.0f, 0.0f), new Vector3(1.0f, 1.0f, 0.0f), new Vector3(3.0f, 1.0f, 0.0f),
+        new Vector3(0.0f, 1.0f, 1.0f), new Vector3(1.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 1.0f),
+        new Vector3(1.0f, 1.0f, 3.0f), new Vector3(3.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 3.0f),
+    };
+
+    // array containing all the colors of the game objects
+    private Color[] _colors = new[] {
+        Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.blue, Color.magenta, Color.blue, Color.magenta,
+        Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.blue, Color.magenta, Color.blue, Color.magenta,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.magenta, Color.blue, Color.magenta, Color.blue,
+        Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.blue, Color.magenta, Color.magenta, Color.blue,
+    };
 
     // the output audio mixer for resonance audio --> Resonance audio mixer
     [SerializeField] private AudioMixer resonanceAudioMixer;
@@ -70,8 +107,8 @@ public class ArManager : MonoBehaviour {
     #endregion
 
 
-    private string arrayOfCoordinates;
-    private string arrayOfColors;
+    // private string arrayOfCoordinates;
+    // private string arrayOfColors;
 
     private void Start() {
         // ar setup
@@ -80,9 +117,9 @@ public class ArManager : MonoBehaviour {
         _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
 
         // scene setup
-        _spawnPosition = new Vector3[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
-        _colors = new Color[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
-        
+        // _spawnPosition = new Vector3[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
+        // _colors = new Color[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
+
         UpdateRound(true);
     }
 
@@ -103,8 +140,9 @@ public class ArManager : MonoBehaviour {
     }
 
     private void SetUpObjectsToPlace() {
+        /*
         for (int i = 0; i < _spawnPosition.Length; i++) {
-            _spawnPosition[i] = new Vector3(Random.Range(0, 3), 0.5f, Random.Range(0, 3));
+            _spawnPosition[i] = new Vector3(Random.Range(0, 4), 1, Random.Range(0, 4));
             arrayOfCoordinates +=
                 "new Vector3" + _spawnPosition[i] +
                 ",  "; // to get a string of all the random values to predefine the random values (for evaluating the testing of the prototype)
@@ -118,6 +156,7 @@ public class ArManager : MonoBehaviour {
 
         Debug.Log(arrayOfCoordinates);
         Debug.Log(arrayOfColors);
+        */
 
         go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
         go_reverbHrtf.SetActive(false);
@@ -140,7 +179,7 @@ public class ArManager : MonoBehaviour {
     public void UpdateRound(bool forward) {
         if (!_isSceneSetup) SetUpObjectsToPlace();
         if (forward) _round++;
-        else _round--;
+        else if (_round > 0) _round--;
 
         // check if the test has finished. If so, inform the user
         if (_round > (totalRounds * 3 - 1)) {
