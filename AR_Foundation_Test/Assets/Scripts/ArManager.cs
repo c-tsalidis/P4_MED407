@@ -52,22 +52,23 @@ public class ArManager : MonoBehaviour {
 
     // array of all the spawning positions for the objects to be placed
     private Vector3[] _spawnPosition = new[] {
-        new Vector3(3.0f, 1.0f, 1.0f), new Vector3(1.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 0.0f),
-        new Vector3(2.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(3.0f, 1.0f, 1.0f), new Vector3(0.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 0.0f),
+        new Vector3(2.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 3.0f),
         new Vector3(2.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(2.0f, 1.0f, 3.0f), new Vector3(0.0f, 1.0f, 3.0f), new Vector3(0.0f, 1.0f, 3.0f),
         new Vector3(1.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 3.0f), new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 2.0f),
+        new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 2.0f), new Vector3(1.0f, 1.0f, 3.0f),
         new Vector3(0.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 2.0f), new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(0.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 0.0f), new Vector3(2.0f, 1.0f, 3.0f),
         new Vector3(0.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(1.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 2.0f), new Vector3(0.0f, 1.0f, 1.0f),
-        new Vector3(0.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 0.0f), new Vector3(2.0f, 1.0f, 1.0f),
+
+        new Vector3(1.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 2.0f), new Vector3(0.0f, 1.0f, 2.0f),
+        new Vector3(0.0f, 1.0f, 1.0f), new Vector3(0.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 2.0f),
-        new Vector3(0.0f, 1.0f, 2.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(1.0f, 1.0f, 0.0f), new Vector3(1.0f, 1.0f, 3.0f), new Vector3(2.0f, 1.0f, 0.0f),
+        new Vector3(0.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(1.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 1.0f), new Vector3(2.0f, 1.0f, 0.0f),
         new Vector3(2.0f, 1.0f, 0.0f), new Vector3(2.0f, 1.0f, 1.0f), new Vector3(3.0f, 1.0f, 3.0f),
         new Vector3(1.0f, 1.0f, 0.0f), new Vector3(1.0f, 1.0f, 0.0f), new Vector3(3.0f, 1.0f, 0.0f),
         new Vector3(0.0f, 1.0f, 1.0f), new Vector3(1.0f, 1.0f, 2.0f), new Vector3(3.0f, 1.0f, 1.0f),
@@ -113,7 +114,7 @@ public class ArManager : MonoBehaviour {
         // _spawnPosition = new Vector3[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
         // _colors = new Color[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
 
-        UpdateRound(true);
+        // UpdateRound(true);
     }
 
 
@@ -128,6 +129,15 @@ public class ArManager : MonoBehaviour {
                 if (hit.transform.CompareTag("Sphere")) {
                     hit.transform.GetComponent<AudioSource>().Play();
                 }
+            }
+        }
+
+
+        if (!_isArAnchorSet) {
+            if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon)) {
+                _isArAnchorSet = true;
+                // _arPlaneManager.detectionMode = PlaneDetectionMode.None;
+                UpdateRound(true);
             }
         }
     }
