@@ -174,7 +174,6 @@ public class ArManager : MonoBehaviour {
         if (!_isArAnchorSet) {
             if (_arRaycastManager.Raycast(_touchPos, hits, TrackableType.PlaneWithinPolygon)) {
                 _isArAnchorSet = true;
-                // _arPlaneManager.detectionMode = PlaneDetectionMode.None;
                 UpdateRound(true);
             }
         }
@@ -189,6 +188,7 @@ public class ArManager : MonoBehaviour {
         
         // stop rendering the planes, but keep them active on scene (make them invisible)
         _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
+        _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
         
         _isSceneSetup = true;
     }
