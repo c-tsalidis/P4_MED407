@@ -105,7 +105,7 @@ namespace UnityEditor.XR.ARKit
                 {
                     foreach (var backgroundShaderKeywordToNotCompile in ARKitCameraSubsystem.backgroundShaderKeywordsToNotCompile)
                     {
-                        ShaderKeyword shaderKeywordToNotCompile = new ShaderKeyword(backgroundShaderKeywordToNotCompile);
+                        ShaderKeyword shaderKeywordToNotCompile = new ShaderKeyword(shader, backgroundShaderKeywordToNotCompile);
 
                         for (int i = (data.Count - 1); i >= 0; --i)
                         {

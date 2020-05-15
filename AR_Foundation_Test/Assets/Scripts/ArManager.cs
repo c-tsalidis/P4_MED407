@@ -40,11 +40,11 @@ public class ArManager : MonoBehaviour {
     private int _previousRound;
     [SerializeField] private int totalRounds = 10; // total amount of rounds
 
+    [SerializeField]
+    private AudioClip[] clips = new AudioClip[10];
     // array containing the objects to be placed into the ar view
     private GameObject[] objectsToPlace = new GameObject[2]; // two objects to be placed per round
     [SerializeField] private GameObject go_reverbHrtf;
-    [SerializeField] private GameObject go_reverb;
-    [SerializeField] private GameObject go_hrtf;
     [SerializeField] private GameObject go_none;
 
     // is the scene set up?
@@ -62,7 +62,7 @@ public class ArManager : MonoBehaviour {
         new Vector3(1.0f, 1.0f, 0.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(0.0f, 1.0f, 3.0f),
+        /*new Vector3(0.0f, 1.0f, 3.0f),
         new Vector3(0.0f, 1.0f, 3.0f),
         new Vector3(1.0f, 1.0f, 0.0f),
         new Vector3(0.0f, 1.0f, 1.0f),
@@ -81,8 +81,8 @@ public class ArManager : MonoBehaviour {
         new Vector3(2.0f, 1.0f, 3.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(3.0f, 1.0f, 2.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
-
+        new Vector3(2.0f, 1.0f, 3.0f),*/
+        
         new Vector3(1.0f, 1.0f, 1.0f),
         new Vector3(3.0f, 1.0f, 2.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
@@ -93,7 +93,7 @@ public class ArManager : MonoBehaviour {
         new Vector3(2.0f, 1.0f, 1.0f),
         new Vector3(3.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 2.0f),
-        new Vector3(3.0f, 1.0f, 0.0f),
+        /*new Vector3(3.0f, 1.0f, 0.0f),
         new Vector3(3.0f, 1.0f, 3.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(3.0f, 1.0f, 1.0f),
@@ -112,19 +112,20 @@ public class ArManager : MonoBehaviour {
         new Vector3(3.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 3.0f),
         new Vector3(3.0f, 1.0f, 0.0f),
-        new Vector3(0.0f, 1.0f, 3.0f),
+        new Vector3(0.0f, 1.0f, 3.0f),*/
     };
 
     // array containing all the colors of the game objects
     private Color[] _colors = new[] {
         Color.magenta, Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.magenta, Color.magenta, Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
+        Color.magenta, Color.magenta, /*Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
         Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta, Color.magenta,
-        Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.magenta,
+        Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.magenta,*/
+        
         Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
+        Color.blue, Color.blue, /*Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
         Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue, Color.blue,
-        Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.blue,
+        Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.blue,*/
     };
 
     // the output audio mixer for resonance audio --> Resonance audio mixer
@@ -203,16 +204,11 @@ public class ArManager : MonoBehaviour {
 
         go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
         go_reverbHrtf.SetActive(false);
-
-        go_hrtf = Instantiate(go_hrtf, Vector3.up, Quaternion.identity);
-        go_hrtf.SetActive(false);
-
+        
         go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);
         go_none.SetActive(false);
 
-        go_reverb = Instantiate(go_reverb, Vector3.up, Quaternion.identity);
-        go_reverb.SetActive(false);
-
+     
         _isSceneSetup = true;
     }
 
@@ -225,7 +221,7 @@ public class ArManager : MonoBehaviour {
         else if (_round > 0) _round--;
 
         // check if the test has finished. If so, inform the user
-        if (_round > (totalRounds * 3 - 1)) {
+        if (_round > (totalRounds - 1)) {
             testFinishedPanel.SetActive(true);
             return;
         }
@@ -240,34 +236,30 @@ public class ArManager : MonoBehaviour {
 
         // in here change characteristics of the audio according to the set of rounds this round corresponds to
         // first set --> sphere with nothing + sphere with reverb and hrtf
-        if (_round % 3 == 0) {
+       
             // sphere has both reverb and hrtf
             objectsToPlace[0] = go_reverbHrtf;
             // sphere 1 has nothing
             objectsToPlace[1] = go_none;
-        }
-        // second set --> both spheres with hrtf, one sphere with reverb
-        else if (_round % 3 == 1) {
-            objectsToPlace[0] = go_reverbHrtf;
-            objectsToPlace[1] = go_hrtf;
-        }
-        // third set --> both spheres with reverb, one with hrtf
-        else if (_round % 3 == 2) {
-            objectsToPlace[0] = go_reverbHrtf;
-            objectsToPlace[1] = go_reverb;
-        }
 
-        for (int i = 0; i < objectsToPlace.Length; i++) {
-            if (!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
-            objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
-            // objectsToPlace[i].GetComponent<AudioSource>().Play();
+            for (int i = 0; i < objectsToPlace.Length; i++)
+            {
+                if (!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
+                objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
+                objectsToPlace[i].GetComponent<AudioSource>().clip=clips[_round];
+                objectsToPlace[i].GetComponent<AudioSource>().Play();
 
-            int loc = _round + i * totalRounds * 3;
+            int loc = _round + i * totalRounds;
             objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color = _colors[loc];
             Debug.Log("Position of object " + objectsToPlace[i].name + " | Index: " + i + " | Round: " + _round +
                       " --> " +
                       objectsToPlace[i].transform.position + " | Color " +
                       objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color);
         }
+
+         
+             
+                
+            
     }
 }

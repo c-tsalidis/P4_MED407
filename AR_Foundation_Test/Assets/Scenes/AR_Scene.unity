@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -477,11 +477,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalRounds: 10
+  clips:
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
+  - {fileID: 8300000, guid: 81c8ba564b4a6784c9cf568b40cbe561, type: 3}
   go_reverbHrtf: {fileID: 3703807539274936688, guid: 4291088ddaaed4d688e85f4c96f2b81f,
     type: 3}
-  go_reverb: {fileID: 3703807539274936688, guid: 1322ba125ed524b798dbde00cd9de354,
-    type: 3}
-  go_hrtf: {fileID: 3703807539274936688, guid: 0f61c160a9bac416394e1216fbe9781e, type: 3}
   go_none: {fileID: 3703807539274936688, guid: e95a4c02f0c3545dba0c20f17655e29e, type: 3}
   resonanceAudioMixer: {fileID: 24100000, guid: 248799cb4acba48f7b3ee842a80f788c,
     type: 2}
@@ -1291,7 +1299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 82.9, y: 326}
+  m_AnchoredPosition: {x: 82.90039, y: 326}
   m_SizeDelta: {x: 171.6, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1118048083
