@@ -4068,7 +4068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5db5bdf1c0ef146875c8d99bc05e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLeft: 7
+  timeLeft: 16
   text: {fileID: 180305172}
   goToEnable: {fileID: 1260344585}
 --- !u!82 &1050864782

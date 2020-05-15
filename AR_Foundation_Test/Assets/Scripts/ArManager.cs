@@ -40,8 +40,8 @@ public class ArManager : MonoBehaviour {
     private int _previousRound;
     [SerializeField] private int totalRounds = 10; // total amount of rounds
 
-    [SerializeField]
-    private AudioClip[] clips = new AudioClip[10];
+    [SerializeField] private AudioClip[] clips = new AudioClip[10];
+
     // array containing the objects to be placed into the ar view
     private GameObject[] objectsToPlace = new GameObject[2]; // two objects to be placed per round
     [SerializeField] private GameObject go_reverbHrtf;
@@ -82,7 +82,7 @@ public class ArManager : MonoBehaviour {
         new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(3.0f, 1.0f, 2.0f),
         new Vector3(2.0f, 1.0f, 3.0f),*/
-        
+
         new Vector3(1.0f, 1.0f, 1.0f),
         new Vector3(3.0f, 1.0f, 2.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
@@ -121,12 +121,17 @@ public class ArManager : MonoBehaviour {
         Color.magenta, Color.magenta, /*Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
         Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta, Color.magenta,
         Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.magenta,*/
-        
+
         Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
         Color.blue, Color.blue, /*Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
         Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue, Color.blue,
         Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.blue,*/
     };
+
+    private int[] spawningOrders = new [] { 0, 1, 1, 0, 0, 1, 0, 0, 1, 1,};
+
+    // spawn delay time between the spawning of objects
+    [SerializeField] private float delaySpawnTime = 3.0f;
 
     // the output audio mixer for resonance audio --> Resonance audio mixer
     [SerializeField] private AudioMixer resonanceAudioMixer;
@@ -138,24 +143,16 @@ public class ArManager : MonoBehaviour {
     // ui text corresponding to the current round
     [SerializeField] private TextMeshProUGUI roundText;
     [SerializeField] private GameObject testFinishedPanel;
+    [SerializeField] private GameObject sceneSetupPanel;
 
     #endregion
 
-
-    // private string arrayOfCoordinates;
-    // private string arrayOfColors;
 
     private void Start() {
         // ar setup
         _arRaycastManager = gameObject.GetComponent<ARRaycastManager>();
         _arAnchorManager = gameObject.GetComponent<ARAnchorManager>();
         _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
-
-        // scene setup
-        // _spawnPosition = new Vector3[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
-        // _colors = new Color[totalRounds * 3 * objectsToPlace.Length]; // three sets of rounds
-
-        // UpdateRound(true);
     }
 
 
@@ -184,24 +181,15 @@ public class ArManager : MonoBehaviour {
     }
 
     private void SetUpObjectsToPlace() {
-        /*
-        for (int i = 0; i < _spawnPosition.Length; i++) {
-            _spawnPosition[i] = new Vector3(Random.Range(0, 4), 1, Random.Range(0, 4));
-            arrayOfCoordinates +=
-                "new Vector3" + _spawnPosition[i] +
-                ",  "; // to get a string of all the random values to predefine the random values (for evaluating the testing of the prototype)
+        go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);	
+        go_reverbHrtf.SetActive(false);	
 
-            int random = (int) Random.Range(0, 2);
-            Color[] c = new[] {Color.blue, Color.magenta};
-            _colors[i] = c[random];
-            string[] cs = new[] {"Color.blue", "Color.magenta"};
-            arrayOfColors += cs[random] + ",  ";
-        }
-
-        Debug.Log(arrayOfCoordinates);
-        Debug.Log(arrayOfColors);
-        */
-
+        go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);	
+        go_none.SetActive(false);
+        
+        // stop rendering the planes, but keep them active on scene (make them invisible)
+        _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
+        
         _isSceneSetup = true;
     }
 
@@ -229,30 +217,46 @@ public class ArManager : MonoBehaviour {
 
         // in here change characteristics of the audio according to the set of rounds this round corresponds to
         // first set --> sphere with nothing + sphere with reverb and hrtf
-       
-            // sphere has both reverb and hrtf
-            objectsToPlace[0] = go_reverbHrtf;
-            // sphere 1 has nothing
-            objectsToPlace[1] = go_none;
 
-            for (int i = 0; i < objectsToPlace.Length; i++)
-            {
-                if (!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
-                objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
-                objectsToPlace[i].GetComponent<AudioSource>().clip=clips[_round];
-                /*objectsToPlace[i].GetComponent<AudioSource>().Play();*/
+        // sphere has both reverb and hrtf
+        objectsToPlace[0] = go_reverbHrtf;
+        // sphere 1 has nothing
+        objectsToPlace[1] = go_none;
+
+        for (int i = 0; i < objectsToPlace.Length; i++) {
+            // update the transform position of both objects
+            objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
+            // update the audio clip of both objects
+            objectsToPlace[i].GetComponent<AudioSource>().clip = clips[_round];
 
             int loc = _round + i * totalRounds;
             objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color = _colors[loc];
+            
             Debug.Log("Position of object " + objectsToPlace[i].name + " | Index: " + i + " | Round: " + _round +
                       " --> " +
                       objectsToPlace[i].transform.position + " | Color " +
                       objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color);
-        }
-
-         
-             
-                
             
+        }
+        StartCoroutine(ObjectSpawnWithDelay(spawningOrders[_round]));
+    }
+
+    private IEnumerator ObjectSpawnWithDelay(int value) {
+        int first, second = 0;
+        if (value == 0) {
+            first = 0;
+            second = 1;
+        }
+        else {
+            first = 1;
+            second = 0;
+        }
+        if (!objectsToPlace[first].activeSelf) objectsToPlace[first].SetActive(true);
+        yield return new WaitForSeconds(delaySpawnTime);
+        if (!objectsToPlace[second].activeSelf) objectsToPlace[second].SetActive(true);
+    }
+
+    public void CloseSceneSetupText() {
+        sceneSetupPanel.SetActive(false);
     }
 }
