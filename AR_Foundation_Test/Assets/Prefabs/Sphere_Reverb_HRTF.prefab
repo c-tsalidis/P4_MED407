@@ -241,7 +241,7 @@ MonoBehaviour:
   reflectivity: 1
   reverbGainDb: 0
   reverbBrightness: 0
-  reverbTime: 1
+  reverbTime: 3
   size: {x: 3, y: 5, z: 3}
 --- !u!114 &628154701567089624
 MonoBehaviour:

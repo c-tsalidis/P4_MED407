@@ -190,6 +190,8 @@ public class ArManager : MonoBehaviour {
         _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
         _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
         
+        CloseSceneSetupText();
+        
         _isSceneSetup = true;
     }
 
@@ -256,7 +258,7 @@ public class ArManager : MonoBehaviour {
         if (!objectsToPlace[second].activeSelf) objectsToPlace[second].SetActive(true);
     }
 
-    public void CloseSceneSetupText() {
+    private void CloseSceneSetupText() {
         sceneSetupPanel.SetActive(false);
     }
 }
