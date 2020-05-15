@@ -202,13 +202,6 @@ public class ArManager : MonoBehaviour {
         Debug.Log(arrayOfColors);
         */
 
-        go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
-        go_reverbHrtf.SetActive(false);
-        
-        go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);
-        go_none.SetActive(false);
-
-     
         _isSceneSetup = true;
     }
 
@@ -247,7 +240,7 @@ public class ArManager : MonoBehaviour {
                 if (!objectsToPlace[i].activeSelf) objectsToPlace[i].SetActive(true);
                 objectsToPlace[i].transform.position = _spawnPosition[_round + i * totalRounds];
                 objectsToPlace[i].GetComponent<AudioSource>().clip=clips[_round];
-                objectsToPlace[i].GetComponent<AudioSource>().Play();
+                /*objectsToPlace[i].GetComponent<AudioSource>().Play();*/
 
             int loc = _round + i * totalRounds;
             objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color = _colors[loc];
