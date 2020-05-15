@@ -132,6 +132,7 @@ public class ArManager : MonoBehaviour {
 
     // spawn delay time between the spawning of objects
     [SerializeField] private float delaySpawnTime = 3.0f;
+    private bool _delayTimeHasPassed = true;
 
     // the output audio mixer for resonance audio --> Resonance audio mixer
     [SerializeField] private AudioMixer resonanceAudioMixer;
@@ -200,6 +201,7 @@ public class ArManager : MonoBehaviour {
     /// </summary>
     public void UpdateRound(bool forward) {
         if (!_isSceneSetup) SetUpObjectsToPlace();
+        if(!_delayTimeHasPassed) return;
         if (forward) _round++;
         else if (_round > 0) _round--;
 
@@ -244,6 +246,7 @@ public class ArManager : MonoBehaviour {
     }
 
     private IEnumerator ObjectSpawnWithDelay(int value) {
+        _delayTimeHasPassed = false;
         int first, second = 0;
         if (value == 0) {
             first = 0;
@@ -256,6 +259,7 @@ public class ArManager : MonoBehaviour {
         if (!objectsToPlace[first].activeSelf) objectsToPlace[first].SetActive(true);
         yield return new WaitForSeconds(delaySpawnTime);
         if (!objectsToPlace[second].activeSelf) objectsToPlace[second].SetActive(true);
+        _delayTimeHasPassed = true;
     }
 
     private void CloseSceneSetupText() {
