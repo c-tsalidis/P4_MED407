@@ -156,9 +156,15 @@ public class AudioMeter : MonoBehaviour {
     }
     */
 
-    [SerializeField] private float timeLeft = 7;
+    [SerializeField] private float timeLeft = 11;
+    private float originalTimeLeft = 0;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject goToEnable;
+
+    private void Start() {
+        originalTimeLeft = timeLeft;
+    }
+
     private void Update() {
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0) {
@@ -168,5 +174,9 @@ public class AudioMeter : MonoBehaviour {
         }
 
         text.text = ((int) timeLeft).ToString();
+    }
+
+    public void ResetCountDown() {
+        timeLeft = originalTimeLeft;
     }
 }

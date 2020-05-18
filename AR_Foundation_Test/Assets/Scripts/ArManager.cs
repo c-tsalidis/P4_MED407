@@ -47,8 +47,13 @@ public class ArManager : MonoBehaviour {
     [SerializeField] private GameObject go_reverbHrtf;
     [SerializeField] private GameObject go_none;
 
+    // parent / container of the instantiated spheres
+    [SerializeField] private GameObject objectsSpawner;
+
     // is the scene set up?
     private bool _isSceneSetup = false;
+
+    [SerializeField] private GameObject audioMeter;
 
     // array of all the spawning positions for the objects to be placed
     private Vector3[] _spawnPosition = new[] {
@@ -90,9 +95,9 @@ public class ArManager : MonoBehaviour {
         new Vector3(0.0f, 1.0f, 3.0f),
         new Vector3(2.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 1.0f),
+        new Vector3(2.0f, 1.0f, 3.0f),
         new Vector3(3.0f, 1.0f, 1.0f),
-        new Vector3(1.0f, 1.0f, 2.0f),
+        new Vector3(1.0f, 1.0f, 1.0f),
         /*new Vector3(3.0f, 1.0f, 0.0f),
         new Vector3(3.0f, 1.0f, 3.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
@@ -128,7 +133,7 @@ public class ArManager : MonoBehaviour {
         Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.blue,*/
     };
 
-    private int[] spawningOrders = new [] { 0, 1, 1, 0, 0, 1, 0, 0, 1, 1,};
+    private int[] spawningOrders = new[] {0, 1, 1, 0, 0, 1, 0, 0, 1, 1,};
 
     // spawn delay time between the spawning of objects
     [SerializeField] private float delaySpawnTime = 3.0f;
@@ -154,6 +159,9 @@ public class ArManager : MonoBehaviour {
         _arRaycastManager = gameObject.GetComponent<ARRaycastManager>();
         _arAnchorManager = gameObject.GetComponent<ARAnchorManager>();
         _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
+
+        _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
+        _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
     }
 
 
@@ -181,18 +189,18 @@ public class ArManager : MonoBehaviour {
     }
 
     private void SetUpObjectsToPlace() {
-        go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);	
-        go_reverbHrtf.SetActive(false);	
+        go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
+        go_reverbHrtf.transform.SetParent(objectsSpawner.transform);
+        go_reverbHrtf.SetActive(false);
 
-        go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);	
+        go_none = Instantiate(go_none, Vector3.up, Quaternion.identity);
+        go_none.transform.SetParent(objectsSpawner.transform);
         go_none.SetActive(false);
-        
+
         // stop rendering the planes, but keep them active on scene (make them invisible)
         _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
         _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
-        
-        CloseSceneSetupText();
-        
+
         _isSceneSetup = true;
     }
 
@@ -201,7 +209,7 @@ public class ArManager : MonoBehaviour {
     /// </summary>
     public void UpdateRound(bool forward) {
         if (!_isSceneSetup) SetUpObjectsToPlace();
-        if(!_delayTimeHasPassed) return;
+        if (!_delayTimeHasPassed) return;
         if (forward) _round++;
         else if (_round > 0) _round--;
 
@@ -235,14 +243,21 @@ public class ArManager : MonoBehaviour {
 
             int loc = _round + i * totalRounds;
             objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color = _colors[loc];
-            
+
             Debug.Log("Position of object " + objectsToPlace[i].name + " | Index: " + i + " | Round: " + _round +
                       " --> " +
                       objectsToPlace[i].transform.position + " | Color " +
                       objectsToPlace[i].GetComponent<Renderer>().sharedMaterial.color);
-            
         }
+
         StartCoroutine(ObjectSpawnWithDelay(spawningOrders[_round]));
+    }
+
+    public void ResetRound() {
+        if (!_delayTimeHasPassed) {
+            UpdateRound(true);
+            UpdateRound(false);
+        }
     }
 
     private IEnumerator ObjectSpawnWithDelay(int value) {
@@ -256,13 +271,40 @@ public class ArManager : MonoBehaviour {
             first = 1;
             second = 0;
         }
+
         if (!objectsToPlace[first].activeSelf) objectsToPlace[first].SetActive(true);
         yield return new WaitForSeconds(delaySpawnTime);
         if (!objectsToPlace[second].activeSelf) objectsToPlace[second].SetActive(true);
         _delayTimeHasPassed = true;
     }
 
-    private void CloseSceneSetupText() {
-        sceneSetupPanel.SetActive(false);
+    public void ResetScene() {
+        _round = 0;
+        _isSceneSetup = false;
+
+        audioMeter.GetComponent<AudioMeter>().ResetCountDown();
+
+        // reset the objects to place and the instantiated spheres
+        Destroy(go_none);
+        for (int i = 0; i < objectsToPlace.Length; i++) {
+            objectsToPlace[i] = null;
+            Destroy(objectsSpawner.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void SpherePlaySound(string color) {
+        if(!_isSceneSetup) return;
+        Color colorToCompare = new Color();
+        if (color == "Blue") colorToCompare = Color.blue;
+        else if (color == "Magenta") colorToCompare = Color.magenta;
+        foreach (var o in objectsToPlace) {
+            if (o.GetComponent<MeshRenderer>().sharedMaterial.color == colorToCompare) {
+                o.GetComponent<AudioSource>().Play();
+            }
+        }
+    }
+
+    public void QuitApp() {
+        Application.Quit();
     }
 }
