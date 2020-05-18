@@ -52,6 +52,7 @@ public class ArManager : MonoBehaviour {
 
     // is the scene set up?
     private bool _isSceneSetup = false;
+    private bool isInMainMenuState = false;
 
     [SerializeField] private GameObject audioMeter;
 
@@ -67,26 +68,6 @@ public class ArManager : MonoBehaviour {
         new Vector3(1.0f, 1.0f, 0.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
         new Vector3(2.0f, 1.0f, 3.0f),
-        /*new Vector3(0.0f, 1.0f, 3.0f),
-        new Vector3(0.0f, 1.0f, 3.0f),
-        new Vector3(1.0f, 1.0f, 0.0f),
-        new Vector3(0.0f, 1.0f, 1.0f),
-        new Vector3(1.0f, 1.0f, 1.0f),
-        new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 1.0f),
-        new Vector3(3.0f, 1.0f, 2.0f),
-        new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(0.0f, 1.0f, 1.0f),
-        new Vector3(2.0f, 1.0f, 2.0f),
-        new Vector3(0.0f, 1.0f, 2.0f),
-        new Vector3(0.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 0.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(0.0f, 1.0f, 2.0f),
-        new Vector3(3.0f, 1.0f, 2.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),*/
 
         new Vector3(1.0f, 1.0f, 1.0f),
         new Vector3(3.0f, 1.0f, 2.0f),
@@ -98,39 +79,15 @@ public class ArManager : MonoBehaviour {
         new Vector3(2.0f, 1.0f, 3.0f),
         new Vector3(3.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 1.0f),
-        /*new Vector3(3.0f, 1.0f, 0.0f),
-        new Vector3(3.0f, 1.0f, 3.0f),
-        new Vector3(0.0f, 1.0f, 2.0f),
-        new Vector3(3.0f, 1.0f, 1.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(1.0f, 1.0f, 0.0f),
-        new Vector3(0.0f, 1.0f, 1.0f),
-        new Vector3(2.0f, 1.0f, 0.0f),
-        new Vector3(2.0f, 1.0f, 0.0f),
-        new Vector3(2.0f, 1.0f, 1.0f),
-        new Vector3(3.0f, 1.0f, 3.0f),
-        new Vector3(1.0f, 1.0f, 0.0f),
-        new Vector3(1.0f, 1.0f, 0.0f),
-        new Vector3(3.0f, 1.0f, 0.0f),
-        new Vector3(0.0f, 1.0f, 1.0f),
-        new Vector3(1.0f, 1.0f, 2.0f),
-        new Vector3(3.0f, 1.0f, 1.0f),
-        new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(3.0f, 1.0f, 0.0f),
-        new Vector3(0.0f, 1.0f, 3.0f),*/
     };
 
     // array containing all the colors of the game objects
     private Color[] _colors = new[] {
         Color.magenta, Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.magenta, Color.magenta, /*Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta, Color.magenta,
-        Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.magenta,*/
+        Color.magenta, Color.magenta, 
 
         Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.blue, /*Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue, Color.blue,
-        Color.blue, Color.blue, Color.magenta, Color.blue, Color.blue, Color.blue,*/
+        Color.blue, Color.blue, 
     };
 
     private int[] spawningOrders = new[] {0, 1, 1, 0, 0, 1, 0, 0, 1, 1,};
@@ -188,7 +145,11 @@ public class ArManager : MonoBehaviour {
         }
     }
 
+    public void StartArScene() => isInMainMenuState = false;
+    
+
     private void SetUpObjectsToPlace() {
+        if(isInMainMenuState) return;
         go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
         go_reverbHrtf.transform.SetParent(objectsSpawner.transform);
         go_reverbHrtf.SetActive(false);
@@ -293,7 +254,7 @@ public class ArManager : MonoBehaviour {
     }
 
     public void SpherePlaySound(string color) {
-        if(!_isSceneSetup) return;
+        if (!_isSceneSetup) return;
         Color colorToCompare = new Color();
         if (color == "Blue") colorToCompare = Color.blue;
         else if (color == "Magenta") colorToCompare = Color.magenta;
