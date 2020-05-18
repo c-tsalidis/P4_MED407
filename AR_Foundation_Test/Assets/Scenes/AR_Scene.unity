@@ -1439,7 +1439,6 @@ MonoBehaviour:
     type: 3}
   go_none: {fileID: 3703807539274936688, guid: e95a4c02f0c3545dba0c20f17655e29e, type: 3}
   objectsSpawner: {fileID: 1688546860}
-  isInMainMenuState: 0
   audioMeter: {fileID: 342597115}
   delaySpawnTime: 3
   resonanceAudioMixer: {fileID: 24100000, guid: 248799cb4acba48f7b3ee842a80f788c,
@@ -9491,7 +9490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1952307094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9631,7 +9630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2089706047
 RectTransform:
   m_ObjectHideFlags: 0
