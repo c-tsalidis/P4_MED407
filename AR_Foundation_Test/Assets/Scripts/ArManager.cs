@@ -169,6 +169,7 @@ public class ArManager : MonoBehaviour {
     /// Method for the rounds and placement of spheres
     /// </summary>
     public void UpdateRound(bool forward) {
+        if(isInMainMenuState) return;
         if (!_isSceneSetup) SetUpObjectsToPlace();
         if (!_delayTimeHasPassed) return;
         if (forward) _round++;
