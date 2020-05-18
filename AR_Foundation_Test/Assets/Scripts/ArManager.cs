@@ -14,6 +14,8 @@ using Random = UnityEngine.Random;
 public class ArManager : MonoBehaviour {
     #region AR variables
 
+    [SerializeField] private GameObject arGameobjects;
+
     // ar managers scripts
     private ARRaycastManager _arRaycastManager;
     private ARAnchorManager _arAnchorManager;
@@ -84,10 +86,10 @@ public class ArManager : MonoBehaviour {
     // array containing all the colors of the game objects
     private Color[] _colors = new[] {
         Color.magenta, Color.blue, Color.blue, Color.magenta, Color.blue, Color.magenta, Color.magenta, Color.blue,
-        Color.magenta, Color.magenta, 
+        Color.magenta, Color.magenta,
 
         Color.blue, Color.magenta, Color.magenta, Color.blue, Color.magenta, Color.blue, Color.blue, Color.magenta,
-        Color.blue, Color.blue, 
+        Color.blue, Color.blue,
     };
 
     private int[] spawningOrders = new[] {0, 1, 1, 0, 0, 1, 0, 0, 1, 1,};
@@ -145,14 +147,16 @@ public class ArManager : MonoBehaviour {
                 UpdateRound(true);
             }
         }
-
     }
 
-    public void StartArScene() => isInMainMenuState = false;
-    
+    public void StartArScene() {
+        isInMainMenuState = false;
+        arGameobjects.SetActive(true);
+    }
+
 
     private void SetUpObjectsToPlace() {
-        if(isInMainMenuState) return;
+        if (isInMainMenuState) return;
         go_reverbHrtf = Instantiate(go_reverbHrtf, Vector3.up, Quaternion.identity);
         go_reverbHrtf.transform.SetParent(objectsSpawner.transform);
         go_reverbHrtf.SetActive(false);
@@ -164,7 +168,7 @@ public class ArManager : MonoBehaviour {
         // stop rendering the planes, but keep them active on scene (make them invisible)
         _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
         _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
-        
+
         sceneSetupPanel.SetActive(false);
 
         _isSceneSetup = true;
@@ -174,7 +178,7 @@ public class ArManager : MonoBehaviour {
     /// Method for the rounds and placement of spheres
     /// </summary>
     public void UpdateRound(bool forward) {
-        if(isInMainMenuState) return;
+        if (isInMainMenuState) return;
         if (!_isSceneSetup) SetUpObjectsToPlace();
         if (!_delayTimeHasPassed) return;
         if (forward) _round++;
@@ -274,5 +278,4 @@ public class ArManager : MonoBehaviour {
     public void QuitApp() {
         Application.Quit();
     }
-    
 }
