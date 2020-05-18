@@ -23,6 +23,7 @@
     <explicitExcludes>
       <Path>.idea</Path>
       <Path>.vs</Path>
+      <Path>AR_Audio</Path>
       <Path>Builds</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
