@@ -5954,13 +5954,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You will be presented with 10 scenarios where different colored spheres
-    on your screen will play sounds. You can tap on them to replay the sounds.
-
-
-    Your task is to choose the sphere that sounds most natural and present to your
-    physical location. Choose by saying the color of the sphere out loud to the conductor
-    of the experiment followed by the round number.
+  m_text: 'Choose by saying the color of the sphere out loud to the conductor of the
+    experiment followed by the round number.
 
 
 
