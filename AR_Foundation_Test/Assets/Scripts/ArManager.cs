@@ -52,7 +52,7 @@ public class ArManager : MonoBehaviour {
 
     // is the scene set up?
     private bool _isSceneSetup = false;
-    private bool isInMainMenuState = false;
+    private bool isInMainMenuState = true;
 
     [SerializeField] private GameObject audioMeter;
 
