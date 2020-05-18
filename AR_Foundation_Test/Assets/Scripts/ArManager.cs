@@ -116,9 +116,6 @@ public class ArManager : MonoBehaviour {
         _arRaycastManager = gameObject.GetComponent<ARRaycastManager>();
         _arAnchorManager = gameObject.GetComponent<ARAnchorManager>();
         _arPlaneManager = gameObject.GetComponent<ARPlaneManager>();
-
-        _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
-        _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
     }
 
 
@@ -167,6 +164,8 @@ public class ArManager : MonoBehaviour {
         // stop rendering the planes, but keep them active on scene (make them invisible)
         _arPlaneManager.planePrefab.GetComponent<MeshRenderer>().enabled = false;
         _arPlaneManager.planePrefab.GetComponent<ARPlaneMeshVisualizer>().enabled = false;
+        
+        sceneSetupPanel.SetActive(false);
 
         _isSceneSetup = true;
     }
@@ -275,4 +274,5 @@ public class ArManager : MonoBehaviour {
     public void QuitApp() {
         Application.Quit();
     }
+    
 }
