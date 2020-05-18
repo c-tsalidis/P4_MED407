@@ -58,27 +58,27 @@ public class ArManager : MonoBehaviour {
 
     // array of all the spawning positions for the objects to be placed
     private Vector3[] _spawnPosition = new[] {
-        new Vector3(3.0f, 1.0f, 1.0f),
+        new Vector3(3.0f, 1.0f, -1.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
-        new Vector3(2.0f, 1.0f, 0.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 1.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 2.0f),
-        new Vector3(1.0f, 1.0f, 0.0f),
+        new Vector3(-2.0f, 1.0f, 0.0f),
+        new Vector3(2.0f, 1.0f, -3.0f),
+        new Vector3(-2.0f, 1.0f, 1.0f),
+        new Vector3(-2.0f, 1.0f, -3.0f),
+        new Vector3(-2.0f, 1.0f, 2.0f),
+        new Vector3(-1.0f, 1.0f, -0.0f),
         new Vector3(0.0f, 1.0f, 2.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(2.0f, 1.0f, -3.0f),
 
-        new Vector3(1.0f, 1.0f, 1.0f),
-        new Vector3(3.0f, 1.0f, 2.0f),
-        new Vector3(0.0f, 1.0f, 2.0f),
+        new Vector3(-1.0f, 1.0f, 1.0f),
+        new Vector3(-3.0f, 1.0f, 2.0f),
+        new Vector3(0.0f, 1.0f, -2.0f),
         new Vector3(0.0f, 1.0f, 1.0f),
-        new Vector3(0.0f, 1.0f, 3.0f),
+        new Vector3(0.0f, 1.0f, -3.0f),
         new Vector3(2.0f, 1.0f, 1.0f),
         new Vector3(1.0f, 1.0f, 3.0f),
-        new Vector3(2.0f, 1.0f, 3.0f),
+        new Vector3(-2.0f, 1.0f, 3.0f),
         new Vector3(3.0f, 1.0f, 1.0f),
-        new Vector3(1.0f, 1.0f, 1.0f),
+        new Vector3(-1.0f, 1.0f, 1.0f),
     };
 
     // array containing all the colors of the game objects
@@ -142,7 +142,13 @@ public class ArManager : MonoBehaviour {
                 _isArAnchorSet = true;
                 UpdateRound(true);
             }
+
+            if (_arPlaneManager.trackables.count > 0) {
+                _isArAnchorSet = true;
+                UpdateRound(true);
+            }
         }
+
     }
 
     public void StartArScene() => isInMainMenuState = false;
